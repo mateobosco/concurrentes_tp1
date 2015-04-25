@@ -26,11 +26,25 @@ void Pizzeria::crearRecepcionistas(int n){
 	for (int i = 0; i < n ; i ++){
 		int pid_recepcionista = fork();
 
-		if (pid_recepcionista == 0){//hijo recepcionista
+		if (pid_recepcionista == 0){//Proceso hijo -> recepcionista
 			Recepcionista r = Recepcionista();
-			std::cout << "Creo una recepcionista con pid"<< getpid() << std::endl;
+			std::cout << "Creo una recepcionista con pid "<< getpid() << std::endl;
 			r.run();
 			break;
 		}
 	}
+}
+
+void Pizzeria::crearCocineros(int n){
+	for (int i = 0; i < n ; i++){
+		int pid_cocinero = fork();
+		if (pid_cocinero == 0) { //Proceso hijo -> cocinero
+			Cocinero c = Cocinero();
+			std::cout<<"Creo un cocinero con pid "<< getpid()<<std::endl;
+			c.run();
+			break;
+		}
+
+	}
+
 }

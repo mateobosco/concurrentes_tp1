@@ -18,6 +18,7 @@ int main() {
 	Pizzeria p = Pizzeria();
 	p.crearGeneradorLlamados();
 	p.crearRecepcionistas(2);
+	p.crearCocineros(2);
 
 	return 0;
 }

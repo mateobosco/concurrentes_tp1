@@ -9,6 +9,7 @@
 #define RECEPCIONISTA_H_
 
 #include "structures/FifoLectura.h"
+#include "structures/FifoEscritura.h"
 #include "Zappi.h"
 
 class Recepcionista {
@@ -19,6 +20,7 @@ public:
 
 private:
 	FifoLectura* colaPedidosRecibir;
+	FifoEscritura* colaPedidosCocinar;
 };
 
 #endif /* RECEPCIONISTA_H_ */

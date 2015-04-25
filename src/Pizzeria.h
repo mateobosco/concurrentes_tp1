@@ -10,6 +10,7 @@
 
 #include "GeneradorLlamados.h"
 #include "Recepcionista.h"
+#include "Cocinero.h"
 
 class Pizzeria {
 public:
@@ -17,6 +18,7 @@ public:
 	virtual ~Pizzeria();
 	void crearGeneradorLlamados();
 	void crearRecepcionistas(int n);
+	void crearCocineros(int n);
 };
 
 #endif /* PIZZERIA_H_ */

@@ -29,7 +29,7 @@ void GeneradorLlamados::run(){
 		ssize_t escritos = this->fifoLlamadosGenerados->escribir((const void*) pizza, tamZappi);
 		std::cout<<"Genere una pizza"<<std::endl;
 		std::cout<< "Escribo " << escritos << std::endl;
-
+		//delete pizza;
 		sleep(this->seg);
 	}
 }
