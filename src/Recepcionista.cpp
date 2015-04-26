@@ -27,23 +27,22 @@ Recepcionista::~Recepcionista() {
 }
 
 void Recepcionista::run(){
-	for (int i = 0 ; i < 10; i++){ //TODO: salida elegante para Recepcionista
+//	for (int i = 0 ; i < 10; i++){ //TODO: salida elegante para Recepcionista
+	while (sigint_handler.getGracefulQuit() == 0){
 
 		Zappi* pizzaLeida = new Zappi("",0);
 		size_t len = sizeof(Zappi);
-		std::cout << "Espero para leer y soy Recepcionista "<<getpid() << std::endl;
+		std::cout << "RECEPCIONISTA Espero para leer "<<getpid() << std::endl;
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);
 
 		if (leidos == len){
-			std::cout << "Lei una pizza y soy Recepcionista " << getpid() << std::endl;
-			this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
-
+			std::cout << "RECEPCIONISTA Lei una pizza" << getpid() << std::endl;
+			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
+			if (escritos != len){
+				std::cout<< "RECEPCIONISTA: ERROR Escribo " << escritos << std::endl;
+			}
 		}
 //		delete pizzaLeida;
-
-
-
-
 	}
 }
 

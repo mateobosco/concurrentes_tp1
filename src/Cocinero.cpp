@@ -10,25 +10,38 @@
 Cocinero::Cocinero() {
 	this->colaPedidosCocinar = new FifoLectura("/tmp/pedidosCocinar");
 	this->colaPedidosCocinar->abrir();
+
+	this->colaPizzasHornear = new FifoEscritura("/tmp/pizzasHornear");
+	this->colaPizzasHornear->abrir();
 }
 
 Cocinero::~Cocinero() {
 	std::cout<<"Muere el Cocinero de pid" << getpid()<< std::endl;
+
 	this->colaPedidosCocinar->cerrar();
 	this->colaPedidosCocinar->eliminar();
 	delete this->colaPedidosCocinar;
+
+	this->colaPizzasHornear->cerrar();
+	this->colaPizzasHornear->eliminar();
+	delete this->colaPizzasHornear;
 }
 
 void Cocinero::run(){
-	for( int i = 0; i< 10 ; i++){
+	//for( int i = 0; i< 10 ; i++){
+	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaCocinar = new Zappi("",0);
 		size_t len = sizeof(Zappi);
-		std::cout << "Espero para leer y soy Cocinero "<<getpid() << std::endl;
+		std::cout << "COCINERO Espero para leer "<<getpid() << std::endl;
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);
 
 		if(leidos == len){
-			std::cout<< "Soy el cocinero y leo una pizza"<<std::endl;
+			std::cout<< "COCINERO: leo una pizza"<<std::endl;
 //			pizzaCocinar->cocinar();
+			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
+			if (escritos != len){
+				std::cout<< "COCINERO: ERROR Escribo " << escritos << std::endl;
+			}
 		}
 
 	}

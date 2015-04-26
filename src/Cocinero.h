@@ -9,10 +9,12 @@
 #define COCINERO_H_
 
 #include "structures/FifoLectura.h"
+#include "structures/FifoEscritura.h"
 
+#include "Proceso.h"
 #include "Zappi.h"
 
-class Cocinero {
+class Cocinero: public Proceso {
 public:
 	Cocinero();
 	virtual ~Cocinero();
@@ -20,6 +22,7 @@ public:
 
 private:
 	FifoLectura* colaPedidosCocinar;
+	FifoEscritura* colaPizzasHornear;
 };
 
 #endif /* COCINERO_H_ */

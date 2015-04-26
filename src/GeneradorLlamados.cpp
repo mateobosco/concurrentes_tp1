@@ -23,14 +23,19 @@ GeneradorLlamados::~GeneradorLlamados() {
 
 void GeneradorLlamados::run(){
 
-	for (int i = 0 ; i < 10; i++){//TODO recibir senial para terminar elegantemente (GeneradorLlamados)
+	//for (int i = 0 ; i < 10; i++){//TODO recibir senial para terminar elegantemente (GeneradorLlamados)
+	int i = 0;
+	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizza = new Zappi("una de muzza", 10);
 		size_t tamZappi = sizeof(Zappi);
 		ssize_t escritos = this->fifoLlamadosGenerados->escribir((const void*) pizza, tamZappi);
-		std::cout<<"Genere una pizza"<<std::endl;
-		std::cout<< "Escribo " << escritos << std::endl;
+		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<std::endl;
+		if (escritos != tamZappi){
+			std::cout<< "GENERADORPIZZAS: ERROR Escribo " << escritos << std::endl;
+		}
 		//delete pizza;
 		sleep(this->seg);
+		i++;
 	}
 }
 

@@ -13,12 +13,16 @@
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl;
+	cout << "!!!PROCESO!!! "<< getpid() << endl;
 
 	Pizzeria p = Pizzeria();
 	p.crearGeneradorLlamados();
 	p.crearRecepcionistas(2);
 	p.crearCocineros(2);
+	p.crearHornos(2);
+
+	p.run();
+
 
 	return 0;
 }

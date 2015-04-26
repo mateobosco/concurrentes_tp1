@@ -11,9 +11,10 @@
 #include <iostream>
 
 #include "structures/FifoEscritura.h"
+#include "Proceso.h"
 #include "Zappi.h"
 
-class GeneradorLlamados {
+class GeneradorLlamados: public Proceso {
 public:
 	GeneradorLlamados();
 	virtual ~GeneradorLlamados();
