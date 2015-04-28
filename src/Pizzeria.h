@@ -16,6 +16,7 @@
 #include "Recepcionista.h"
 #include "Cocinero.h"
 #include "Horno.h"
+#include "Cadete.h"
 
 class Pizzeria: public Proceso {
 public:
@@ -25,6 +26,7 @@ public:
 	void crearRecepcionistas(int n);
 	void crearCocineros(int n);
 	void crearHornos(int n);
+	void crearCadetes(int n);
 
 	void run();
 

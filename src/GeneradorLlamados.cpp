@@ -23,6 +23,7 @@ GeneradorLlamados::~GeneradorLlamados() {
 }
 
 void GeneradorLlamados::run(){
+	this->changeName("TP - GeneradorLlamados");
 	//for (int i = 0 ; i < 10; i++){//TODO recibir senial para terminar elegantemente (GeneradorLlamados)
 	int i = 0;
 	while (sigint_handler.getGracefulQuit() == 0){

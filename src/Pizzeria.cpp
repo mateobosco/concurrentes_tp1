@@ -8,6 +8,7 @@
 #include "Pizzeria.h"
 
 Pizzeria::Pizzeria() {
+	this->changeName("TP - Pizzeria");
 
 }
 
@@ -73,6 +74,22 @@ void Pizzeria::crearHornos(int n){
 		}
 		else{
 			this->childs.push_back(pid_horno);
+		}
+	}
+}
+
+void Pizzeria::crearCadetes(int n){
+	for (int i = 0 ; i < n ; i++){
+		int pid_cadete = fork();
+		if (pid_cadete == 0){ //Proceso hijo -> cadete
+			Cadete* c = new Cadete();
+//			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
+			c->run();
+			delete c;
+			exit(0);
+		}
+		else{
+			this->childs.push_back(pid_cadete);
 		}
 	}
 }

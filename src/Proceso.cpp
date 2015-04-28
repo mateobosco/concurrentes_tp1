@@ -15,3 +15,8 @@ Proceso::~Proceso() {
 	SignalHandler :: destruir ();
 }
 
+int Proceso::changeName(std::string name){
+
+	const char* new_name = name.c_str();
+	prctl(PR_SET_NAME, (unsigned long) new_name, 0, 0, 0);
+}

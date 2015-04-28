@@ -8,6 +8,9 @@
 #ifndef PROCESO_H_
 #define PROCESO_H_
 
+#include <sys/prctl.h>
+#include <iostream>
+
 #include "structures/SIGINT_Handler.h"
 #include "structures/SignalHandler.h"
 
@@ -16,6 +19,7 @@ public:
 	Proceso();
 	virtual ~Proceso();
 	SIGINT_Handler sigint_handler;
+	int changeName(std::string name);
 };
 
 #endif /* PROCESO_H_ */

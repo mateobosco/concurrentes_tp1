@@ -27,6 +27,7 @@ Recepcionista::~Recepcionista() {
 }
 
 void Recepcionista::run(){
+	this->changeName("TP - Recepcionista");
 //	for (int i = 0 ; i < 10; i++){ //TODO: salida elegante para Recepcionista
 	while (sigint_handler.getGracefulQuit() == 0){
 
