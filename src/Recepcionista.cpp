@@ -8,7 +8,7 @@
 #include "Recepcionista.h"
 
 Recepcionista::Recepcionista() {
-	this->colaPedidosRecibir = new FifoLectura("/tmp/pedidos");
+	this->colaPedidosRecibir = new FifoLectura("/tmp/llamadosGenerados");
 	this->colaPedidosRecibir->abrir();
 
 	this->colaPedidosCocinar = new FifoEscritura("/tmp/pedidosCocinar");
@@ -28,7 +28,6 @@ Recepcionista::~Recepcionista() {
 
 void Recepcionista::run(){
 	this->changeName("TP - Recepcionista");
-//	for (int i = 0 ; i < 10; i++){ //TODO: salida elegante para Recepcionista
 	while (sigint_handler.getGracefulQuit() == 0){
 
 		Zappi* pizzaLeida = new Zappi("",0);
@@ -37,7 +36,7 @@ void Recepcionista::run(){
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);
 
 		if (leidos == len){
-			std::cout << "RECEPCIONISTA Lei una pizza" << getpid() << std::endl;
+			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() << getpid() << std::endl;
 			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
 			if (escritos != len){
 				std::cout<< "RECEPCIONISTA: ERROR Escribo " << escritos << std::endl;

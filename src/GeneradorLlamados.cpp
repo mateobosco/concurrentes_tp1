@@ -9,9 +9,8 @@
 
 
 GeneradorLlamados::GeneradorLlamados() {
-	const std::string archivoPedidos = "/tmp/pedidos";
 	this->seg = 1; //TODO no harcodear los parametros de los llamados(GeneradorLlamados)
-	this->fifoLlamadosGenerados = new FifoEscritura(archivoPedidos);
+	this->fifoLlamadosGenerados = new FifoEscritura("/tmp/llamadosGenerados");
 	this->fifoLlamadosGenerados->abrir();
 }
 
@@ -24,17 +23,19 @@ GeneradorLlamados::~GeneradorLlamados() {
 
 void GeneradorLlamados::run(){
 	this->changeName("TP - GeneradorLlamados");
-	//for (int i = 0 ; i < 10; i++){//TODO recibir senial para terminar elegantemente (GeneradorLlamados)
 	int i = 0;
 	while (sigint_handler.getGracefulQuit() == 0){
+
 		Zappi* pizza = new Zappi("una de muzza", 10);
 		size_t tamZappi = sizeof(Zappi);
-		ssize_t escritos = this->fifoLlamadosGenerados->escribir((const void*) pizza, tamZappi);
+		ssize_t escritos = this->fifoLlamadosGenerados->escribir(static_cast<const void*>(pizza), tamZappi);
 		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<std::endl;
+
 		if (escritos != tamZappi){
 			std::cout<< "GENERADORPIZZAS: ERROR Escribo " << escritos << std::endl;
 		}
-		//delete pizza;
+
+//		delete pizza;
 		sleep(this->seg);
 		i++;
 	}
