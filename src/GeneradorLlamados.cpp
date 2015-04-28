@@ -16,13 +16,13 @@ GeneradorLlamados::GeneradorLlamados() {
 }
 
 GeneradorLlamados::~GeneradorLlamados() {
+	std::cout << "Muere Generador de Llamados " << getpid() << std::endl;
 	this->fifoLlamadosGenerados->cerrar();
 	this->fifoLlamadosGenerados->eliminar();
 	delete this->fifoLlamadosGenerados;
 }
 
 void GeneradorLlamados::run(){
-
 	//for (int i = 0 ; i < 10; i++){//TODO recibir senial para terminar elegantemente (GeneradorLlamados)
 	int i = 0;
 	while (sigint_handler.getGracefulQuit() == 0){

@@ -18,8 +18,10 @@ void Pizzeria::crearGeneradorLlamados(){
 	int pid_llamados = fork();
 	if (pid_llamados == 0){//hijo generador de pedidos
 //		std::cout << "Creo un generador de pedidos" << std::endl;
-		GeneradorLlamados generador = GeneradorLlamados();
-		generador.run();
+		GeneradorLlamados* generador = new GeneradorLlamados();
+		generador->run();
+		delete generador;
+		exit(0);
 	}
 	else{
 		this->childs.push_back(pid_llamados);
@@ -31,10 +33,11 @@ void Pizzeria::crearRecepcionistas(int n){
 		int pid_recepcionista = fork();
 
 		if (pid_recepcionista == 0){//Proceso hijo -> recepcionista
-			Recepcionista r = Recepcionista();
+			Recepcionista* r = new Recepcionista();
 //			std::cout << "Creo una recepcionista con pid "<< getpid() << std::endl;
-			r.run();
-			break;
+			r->run();
+			delete r;
+			exit(0);
 		}
 		else{
 			this->childs.push_back(pid_recepcionista);
@@ -46,10 +49,11 @@ void Pizzeria::crearCocineros(int n){
 	for (int i = 0; i < n ; i++){
 		int pid_cocinero = fork();
 		if (pid_cocinero == 0) { //Proceso hijo -> cocinero
-			Cocinero c = Cocinero();
+			Cocinero* c = new Cocinero();
 //			std::cout<<"Creo un cocinero con pid "<< getpid()<<std::endl;
-			c.run();
-			break;
+			c->run();
+			delete c;
+			exit(0);
 		}
 		else{
 			this->childs.push_back(pid_cocinero);
@@ -61,10 +65,11 @@ void Pizzeria::crearHornos(int n){
 	for (int i = 0; i < n ; i++){
 		int pid_horno = fork();
 		if (pid_horno == 0) { //Proceso hijo -> horno
-			Horno h = Horno();
+			Horno* h = new Horno();
 //			std::cout<<"Creo un horno con pid "<< getpid()<<std::endl;
-			h.run();
-			break;
+			h->run();
+			delete h;
+			exit(0);
 		}
 		else{
 			this->childs.push_back(pid_horno);
@@ -79,6 +84,7 @@ void Pizzeria::run(){
 
 	for (size_t i = 0; i < this->childs.size() ; i++){
 		int p = this->childs[i];
+		std::cout<<"mato al hijo "<< p << std::endl;
 		kill(p,SIGINT);
 	}
 }

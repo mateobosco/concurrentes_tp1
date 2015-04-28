@@ -2,7 +2,9 @@
 #define SIGINT_HANDLER_H_
 
 #include <signal.h>
+#include <unistd.h>
 #include <assert.h>
+#include <iostream>
 
 #include "EventHandler.h"
 
@@ -21,6 +23,7 @@ class SIGINT_Handler : public EventHandler {
 
 		virtual int handleSignal ( int signum ) {
 			assert ( signum == SIGINT );
+			std::cout << "Recibo la senial 2 y soy el proceso: "<< getpid()<<std::endl;
 			this->gracefulQuit = 1;
 			return 0;
 		}

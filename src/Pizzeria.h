@@ -8,6 +8,7 @@
 #ifndef PIZZERIA_H_
 #define PIZZERIA_H_
 
+#include <stdlib.h>
 #include <vector>
 
 #include "Proceso.h"
