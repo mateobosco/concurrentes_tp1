@@ -32,6 +32,7 @@ public:
 
 private:
 	std::vector<int> childs;
+	LockFile* lockPizzeria;
 };
 
 #endif /* PIZZERIA_H_ */

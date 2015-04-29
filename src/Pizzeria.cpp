@@ -9,10 +9,11 @@
 
 Pizzeria::Pizzeria() {
 	this->changeName("TP - Pizzeria");
-
+	this->lockPizzeria = new LockFile("Pizzeria.cpp");
 }
 
 Pizzeria::~Pizzeria() {
+	delete this->lockPizzeria;
 }
 
 void Pizzeria::crearGeneradorLlamados(){
@@ -23,9 +24,6 @@ void Pizzeria::crearGeneradorLlamados(){
 		generador->run();
 		delete generador;
 		exit(0);
-	}
-	else{
-		this->childs.push_back(pid_llamados);
 	}
 }
 
@@ -96,12 +94,12 @@ void Pizzeria::crearCadetes(int n){
 
 void Pizzeria::run(){
 
-	while (sigint_handler.getGracefulQuit() == 0){
-	}
+	this->lockPizzeria->tomarLock();
 
 	for (size_t i = 0; i < this->childs.size() ; i++){
 		int p = this->childs[i];
 		std::cout<<"mato al hijo "<< p << std::endl;
 		kill(p,SIGINT);
 	}
+	this->lockPizzeria->liberarLock();
 }
