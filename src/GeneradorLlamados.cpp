@@ -35,7 +35,7 @@ void GeneradorLlamados::run(){
 			std::cout<< "GENERADORPIZZAS: ERROR Escribo " << escritos << std::endl;
 		}
 
-//		delete pizza;
+		delete pizza;
 		sleep(this->seg);
 		i++;
 	}

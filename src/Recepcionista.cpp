@@ -41,8 +41,13 @@ void Recepcionista::run(){
 			if (escritos != len){
 				std::cout<< "RECEPCIONISTA: ERROR Escribo " << escritos << std::endl;
 			}
+			else{
+				//leer en mem compartida cant de pedidos tomados
+				//sumar 1, escribir en mem compartida.
+
+			}
 		}
-//		delete pizzaLeida;
+		delete pizzaLeida;
 	}
 }
 

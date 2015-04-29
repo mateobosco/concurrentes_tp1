@@ -29,6 +29,8 @@ void Cadete::run(){
 		if(leidos == len){
 			std::cout<< "CADETE : leo una pizza"<<std::endl;
 		}
+
+		delete pizzaHorneada;
 	}
 
 

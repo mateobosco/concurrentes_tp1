@@ -40,10 +40,19 @@ void Cocinero::run(){
 			std::cout<< "COCINERO: leo una pizza"<<std::endl;
 //			pizzaCocinar->cocinar();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
+
 			if (escritos != len){
 				std::cout<< "COCINERO: ERROR Escribo " << escritos << std::endl;
 			}
+			else{
+				//leer memoria compartida, si hay mas del doble de PT  que los PC
+				// lockear a las recepcionistas. Despues deslockearlas.
+
+			}
+
 		}
+
+		delete pizzaCocinar;
 
 	}
 }

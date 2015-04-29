@@ -38,5 +38,6 @@ void Horno::run(){
 	//			pizzaHornear->cocinar();
 			this->colaPizzaHorneadas->escribir((void*) pizzaHornear, len);
 		}
+		delete pizzaHornear;
 	}
 }

@@ -9,6 +9,8 @@
 #define ZAPPI_H_
 
 #include <iostream>
+#include <string.h>
+
 
 class Zappi {
 public:
@@ -19,7 +21,7 @@ public:
 	int getDuracion();
 
 private:
-	std::string gusto;
+	char gusto[50];
 	int duracion;
 };
 

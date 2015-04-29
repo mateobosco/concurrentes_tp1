@@ -20,8 +20,8 @@ int main() {
 	p.crearGeneradorLlamados();
 	p.crearRecepcionistas(2);
 	p.crearCocineros(2);
-//	p.crearHornos(2);
-//	p.crearCadetes(2);
+	p.crearHornos(2);
+	p.crearCadetes(2);
 
 	p.run();
 

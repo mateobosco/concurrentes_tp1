@@ -8,7 +8,7 @@
 #include "Zappi.h"
 
 Zappi::Zappi(std::string gusto, int duracion) {
-	this->gusto = gusto;
+	memcpy(this->gusto,gusto.c_str(),gusto.size());
 	this->duracion = duracion;
 }
 
