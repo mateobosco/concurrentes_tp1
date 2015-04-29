@@ -9,7 +9,7 @@
 
 Pizzeria::Pizzeria() {
 	this->changeName("TP - Pizzeria");
-	this->lockPizzeria = new LockFile("Pizzeria.cpp");
+	this->lockPizzeria = new LockFile("lockPizzeria.txt");
 }
 
 Pizzeria::~Pizzeria() {
@@ -20,6 +20,7 @@ void Pizzeria::crearGeneradorLlamados(){
 	int pid_llamados = fork();
 	if (pid_llamados == 0){//hijo generador de pedidos
 //		std::cout << "Creo un generador de pedidos" << std::endl;
+		Logger::log(Logger::INFO,"Creo el generador de llamados");
 		GeneradorLlamados* generador = new GeneradorLlamados();
 		generador->run();
 		delete generador;
@@ -95,6 +96,7 @@ void Pizzeria::crearCadetes(int n){
 void Pizzeria::run(){
 
 	this->lockPizzeria->tomarLock();
+	Logger::log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
 
 	for (size_t i = 0; i < this->childs.size() ; i++){
 		int p = this->childs[i];

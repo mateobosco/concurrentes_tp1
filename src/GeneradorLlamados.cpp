@@ -13,7 +13,7 @@ GeneradorLlamados::GeneradorLlamados() {
 	this->fifoLlamadosGenerados = new FifoEscritura("/tmp/llamadosGenerados");
 	this->fifoLlamadosGenerados->abrir();
 
-	this->lockPizzeria = new LockFile("Pizzeria.cpp");
+	this->lockPizzeria = new LockFile("lockPizzeria.txt");
 	this->lockPizzeria->tomarLock();
 }
 

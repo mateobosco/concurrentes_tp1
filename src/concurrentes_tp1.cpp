@@ -10,11 +10,14 @@
 
 
 #include "Pizzeria.h"
+#include "Logger.h"
 
 using namespace std;
 
 int main() {
 	cout << "!!!PROCESO!!! "<< getpid() << endl;
+
+	Logger::log(Logger::INFO, "Empieza el programa");
 
 	Pizzeria p = Pizzeria();
 	p.crearGeneradorLlamados();
