@@ -15,6 +15,7 @@ set(SOURCE_FILES
     src/structures/Pipe.h
     src/structures/LockFile.cpp
     src/structures/LockFile.h
+    src/structures/MemoriaCompartida.h
     src/structures/SIGINT_Handler.h
     src/structures/SignalHandler.cpp
     src/structures/SignalHandler.h
