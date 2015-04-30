@@ -13,6 +13,8 @@ Cocinero::Cocinero() {
 
 	this->colaPizzasHornear = new FifoEscritura("/tmp/pizzasHornear");
 	this->colaPizzasHornear->abrir();
+
+	this->lockHornosOcupados = new LockFile("lockHornosOcupados.txt");
 }
 
 Cocinero::~Cocinero() {
@@ -25,6 +27,8 @@ Cocinero::~Cocinero() {
 	this->colaPizzasHornear->cerrar();
 	this->colaPizzasHornear->eliminar();
 	delete this->colaPizzasHornear;
+
+//	delete this->lockHornosOcupados;
 }
 
 void Cocinero::run(){
@@ -38,7 +42,6 @@ void Cocinero::run(){
 
 		if(leidos == len){
 			std::cout<< "COCINERO: leo una pizza"<<std::endl;
-//			pizzaCocinar->cocinar();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
 
 			if (escritos != len){

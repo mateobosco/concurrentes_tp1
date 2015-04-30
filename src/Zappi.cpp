@@ -23,3 +23,7 @@ std::string Zappi::getGusto() {
 	return this->gusto;
 }
 
+void Zappi::cocinarse(){
+	//sleep(this->duracion);
+}
+

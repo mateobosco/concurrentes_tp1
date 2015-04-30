@@ -21,10 +21,10 @@ int main() {
 
 	Pizzeria p = Pizzeria();
 	p.crearGeneradorLlamados();
-	p.crearRecepcionistas(2);
-	p.crearCocineros(2);
-	p.crearHornos(2);
-	p.crearCadetes(2);
+	p.crearRecepcionistas(1);
+	p.crearCocineros(1);
+	p.crearHornos(1);
+	p.crearCadetes(1);
 
 	p.run();
 
