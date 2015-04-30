@@ -20,6 +20,7 @@ public:
 	std::string getGusto();
 	int getDuracion();
 	int getPrecio();
+	void cocinarse();
 
 private:
 	char gusto[50];

@@ -28,4 +28,6 @@ int Zappi::getPrecio() {
 	return this->precio;
 }
 
+void Zappi::cocinarse(){
 
+}
