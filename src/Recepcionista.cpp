@@ -30,7 +30,7 @@ void Recepcionista::run(){
 	this->changeName("TP - Recepcionista");
 	while (sigint_handler.getGracefulQuit() == 0){
 
-		Zappi* pizzaLeida = new Zappi("",0);
+		Zappi* pizzaLeida = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
 		std::cout << "RECEPCIONISTA Espero para leer "<<getpid() << std::endl;
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);

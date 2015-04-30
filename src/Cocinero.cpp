@@ -31,7 +31,7 @@ void Cocinero::run(){
 	//for( int i = 0; i< 10 ; i++){
 	this->changeName("TP - Cocinero");
 	while (sigint_handler.getGracefulQuit() == 0){
-		Zappi* pizzaCocinar = new Zappi("",0);
+		Zappi* pizzaCocinar = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
 		std::cout << "COCINERO Espero para leer "<<getpid() << std::endl;
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);

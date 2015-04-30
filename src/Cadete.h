@@ -15,13 +15,14 @@
 
 #include "Proceso.h"
 #include "Zappi.h"
+#include "structures/MemoriaCompartida.h"
 
 class Cadete: public Proceso {
 public:
 	Cadete();
 	virtual ~Cadete();
 	void run();
-
+	void depositarEnCaja(int total);
 private:
 	FifoLectura* colaPizzasHorneadas;
 //	FifoEscritura* colaPizzasCobrar;

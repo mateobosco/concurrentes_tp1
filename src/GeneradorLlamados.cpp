@@ -26,7 +26,7 @@ void GeneradorLlamados::run(){
 	int i = 0;
 	while (sigint_handler.getGracefulQuit() == 0){
 
-		Zappi* pizza = new Zappi("una de muzza", 10);
+		Zappi* pizza = new Zappi("una de muzza", 10, 50);
 		size_t tamZappi = sizeof(Zappi);
 		ssize_t escritos = this->fifoLlamadosGenerados->escribir(static_cast<const void*>(pizza), tamZappi);
 		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<std::endl;

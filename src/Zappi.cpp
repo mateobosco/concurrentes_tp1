@@ -7,9 +7,10 @@
 
 #include "Zappi.h"
 
-Zappi::Zappi(std::string gusto, int duracion) {
+Zappi::Zappi(std::string gusto, int duracion, int precio) {
 	memcpy(this->gusto,gusto.c_str(),gusto.size());
 	this->duracion = duracion;
+	this->precio = 50;
 }
 
 Zappi::~Zappi() {
@@ -22,4 +23,9 @@ int Zappi::getDuracion() {
 std::string Zappi::getGusto() {
 	return this->gusto;
 }
+
+int Zappi::getPrecio() {
+	return this->precio;
+}
+
 

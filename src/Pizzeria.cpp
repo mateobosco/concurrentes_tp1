@@ -6,6 +6,11 @@
  */
 
 #include "Pizzeria.h"
+#include "Caja.h"
+#include "structures/LockFile.h"
+
+
+using namespace std;
 
 Pizzeria::Pizzeria() {
 	this->changeName("TP - Pizzeria");
@@ -94,6 +99,21 @@ void Pizzeria::crearCadetes(int n){
 	}
 }
 
+void Pizzeria::crearSupervisora(){
+		int pid_supervisora = fork();
+		if (pid_supervisora == 0){ //Proceso hijo -> cadete
+			//Supervisora* s = new Supervisora();
+//			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
+			//s->run();
+			//delete s;
+			exit(0);
+		}
+		else{
+			this->childs.push_back(pid_supervisora);
+		}
+
+}
+
 void Pizzeria::run(){
 
 	while (sigint_handler.getGracefulQuit() == 0){
@@ -104,4 +124,32 @@ void Pizzeria::run(){
 		std::cout<<"mato al hijo "<< p << std::endl;
 		kill(p,SIGINT);
 	}
+}
+
+void Pizzeria::crearCaja(){
+	//string archivo ( "../Pizzeria.cpp" );
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		fprintf(stdout, "Current working dir: %s\n", cwd);
+	string archivo = string(cwd);
+	archivo.append("/src/Pizzeria.cpp"); // TODO VER COMO ARREGLAR ESTO
+	MemoriaCompartida<Caja> memoria;
+	Caja caja = Caja();
+	LockFile lock ( "Cadete.cpp" );
+	lock.tomarLock();
+	cout << "La pizzeria" << getpid() << "toma el lock" << endl;
+	int estadoMemoria = memoria.crear ( archivo,'R' );
+	if ( estadoMemoria == SHM_OK ) {
+		cout << " ++++++++++++++++++++++ Pizzeria escribo la memoria compartida" << endl;
+		memoria.escribir ( caja );
+
+		//memoria.liberar (); TODO liberar memoria compartida cuando termine
+	} else {
+		cout << "Padre: error en memoria compartida: " << estadoMemoria << endl;
+	}
+	lock.liberarLock();
+	cout << "La pizzeria  "<< getpid() << "libero el lock" << endl;
+
+
+
 }

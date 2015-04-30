@@ -17,14 +17,14 @@ int main() {
 	cout << "!!!PROCESO!!! "<< getpid() << endl;
 
 	Pizzeria p = Pizzeria();
+	p.crearCaja();
 	p.crearGeneradorLlamados();
 	p.crearRecepcionistas(2);
 	p.crearCocineros(2);
 	p.crearHornos(2);
 	p.crearCadetes(2);
-
+	p.crearSupervisora();
 	p.run();
-
 
 	return 0;
 }

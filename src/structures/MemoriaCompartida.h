@@ -40,8 +40,10 @@ template <class T> int MemoriaCompartida<T> :: crear ( const std::string& archiv
 
 	// generacion de la clave
 	key_t clave = ftok ( archivo.c_str(),letra );
-	if ( clave == -1 )
+	if ( clave == -1 ) {
+		printf(" //////////////////////// 1  /////////////////////////");
 		return ERROR_FTOK;
+	}
 	else {
 		// creacion de la memoria compartida
 		this->shmId = shmget ( clave,sizeof(T),0644|IPC_CREAT );

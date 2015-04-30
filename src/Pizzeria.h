@@ -17,6 +17,8 @@
 #include "Cocinero.h"
 #include "Horno.h"
 #include "Cadete.h"
+#include "Supervisora.h"
+#include "structures/MemoriaCompartida.h"
 
 class Pizzeria: public Proceso {
 public:
@@ -27,6 +29,8 @@ public:
 	void crearCocineros(int n);
 	void crearHornos(int n);
 	void crearCadetes(int n);
+	void crearSupervisora();
+	void crearCaja();
 
 	void run();
 

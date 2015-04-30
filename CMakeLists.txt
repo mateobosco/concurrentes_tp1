@@ -19,6 +19,8 @@ set(SOURCE_FILES
     src/structures/SIGINT_Handler.h
     src/structures/SignalHandler.cpp
     src/structures/SignalHandler.h
+    src/Caja.cpp
+    src/Caja.h
     src/Cadete.cpp
     src/Cadete.h
     src/Cocinero.cpp
@@ -32,9 +34,11 @@ set(SOURCE_FILES
     src/Pizzeria.h
     src/Proceso.cpp
     src/Proceso.h
+    src/Supervisora.cpp
+    src/Supervisora.h
     src/Recepcionista.cpp
     src/Recepcionista.h
     src/Zappi.cpp
     src/Zappi.h)
 
-add_executable(concurrentes_tp1 ${SOURCE_FILES})
+add_executable(concurrentes_tp1 ${SOURCE_FILES} src/Supervisora.cpp src/Supervisora.h src/Caja.cpp src/Caja.h)
