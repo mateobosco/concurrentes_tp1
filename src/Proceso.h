@@ -14,12 +14,14 @@
 #include "structures/SIGINT_Handler.h"
 #include "structures/SignalHandler.h"
 
+#include "Logger.h"
+
 class Proceso {
 public:
 	Proceso();
 	virtual ~Proceso();
 	SIGINT_Handler sigint_handler;
-	int changeName(std::string name);
+	void changeName(std::string name);
 };
 
 #endif /* PROCESO_H_ */

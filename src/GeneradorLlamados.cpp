@@ -12,6 +12,9 @@ GeneradorLlamados::GeneradorLlamados() {
 	this->seg = 1; //TODO no harcodear los parametros de los llamados(GeneradorLlamados)
 	this->fifoLlamadosGenerados = new FifoEscritura("/tmp/llamadosGenerados");
 	this->fifoLlamadosGenerados->abrir();
+
+	this->lockPizzeria = new LockFile("lockPizzeria.txt");
+	this->lockPizzeria->tomarLock();
 }
 
 GeneradorLlamados::~GeneradorLlamados() {
@@ -39,6 +42,7 @@ void GeneradorLlamados::run(){
 		sleep(this->seg);
 		i++;
 	}
+	this->lockPizzeria->liberarLock();
 }
 
 

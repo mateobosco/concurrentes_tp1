@@ -36,6 +36,9 @@ public:
 
 private:
 	std::vector<int> childs;
+	LockFile* lockPizzeria;
+	MemoriaCompartida<int>* cantHornosLibres;
+	LockFile* lockHornosOcupados;
 };
 
 #endif /* PIZZERIA_H_ */

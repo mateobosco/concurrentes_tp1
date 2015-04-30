@@ -27,7 +27,7 @@ void Cadete::run(){
 	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaHorneada = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
-		std::cout << "CADETE: Espero para leer"<<getpid() << std::endl;
+//		std::cout << "CADETE: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHorneadas->leer((void*) pizzaHorneada, len);
 
 		if(leidos == len){
