@@ -11,7 +11,7 @@ using namespace std;
 
 Pizzeria::Pizzeria() {
 	this->changeName("TP - Pizzeria");
-	this->lockPizzeria = new LockFile("aux/lockPizzeria.txt");
+	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt",0);
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt",0);
 	this->semaforoPedidosPendientes = NULL; //Se crea cuando se sabe la cantidad de cocineros a crear.
@@ -21,7 +21,8 @@ Pizzeria::Pizzeria() {
 }
 
 Pizzeria::~Pizzeria() {
-	delete this->lockPizzeria;
+	this->semaforoPizzeriaGracefulQuit->eliminar();
+	delete this->semaforoPizzeriaGracefulQuit;
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
@@ -36,8 +37,8 @@ Pizzeria::~Pizzeria() {
 void Pizzeria::crearGeneradorLlamados(){
 	int pid_llamados = fork();
 	if (pid_llamados == 0){//hijo generador de pedidos
-//		std::cout << "Creo un generador de pedidos" << std::endl;
-		Logger::log(Logger::INFO,"Creo el generador de llamados");
+		std::cout << "Creo un generador de llamados" << std::endl;
+//		Logger::log(Logger::INFO,"Creo el generador de llamados");
 		GeneradorLlamados* generador = new GeneradorLlamados();
 		generador->run();
 		delete generador;
@@ -51,7 +52,7 @@ void Pizzeria::crearRecepcionistas(int n){
 
 		if (pid_recepcionista == 0){//Proceso hijo -> recepcionista
 			Recepcionista* r = new Recepcionista();
-//			std::cout << "Creo una recepcionista con pid "<< getpid() << std::endl;
+			std::cout << "Creo una recepcionista con pid "<< getpid() << std::endl;
 			r->run();
 			delete r;
 			exit(0);
@@ -68,7 +69,7 @@ void Pizzeria::crearCocineros(int n){
 		int pid_cocinero = fork();
 		if (pid_cocinero == 0) { //Proceso hijo -> cocinero
 			Cocinero* c = new Cocinero();
-//			std::cout<<"Creo un cocinero con pid "<< getpid()<<std::endl;
+			std::cout<<"Creo un cocinero con pid "<< getpid()<<std::endl;
 			c->run();
 			delete c;
 			exit(0);
@@ -84,7 +85,7 @@ void Pizzeria::crearHornos(int n){
 		int pid_horno = fork();
 		if (pid_horno == 0) { //Proceso hijo -> horno
 			Horno* h = new Horno();
-//			std::cout<<"Creo un horno con pid "<< getpid()<<std::endl;
+			std::cout<<"Creo un horno con pid "<< getpid()<<std::endl;
 			h->run();
 			delete h;
 			exit(0);
@@ -100,7 +101,7 @@ void Pizzeria::crearCadetes(int n){
 		int pid_cadete = fork();
 		if (pid_cadete == 0){ //Proceso hijo -> cadete
 			Cadete* c = new Cadete();
-//			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
+			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
 			c->run();
 			delete c;
 			exit(0);
@@ -128,8 +129,8 @@ void Pizzeria::crearSupervisora(int segundos){
 
 void Pizzeria::run(){
 
-//	this->lockPizzeria->tomarLock();
-	while(true){}
+	this->semaforoPizzeriaGracefulQuit->p();
+	std::cout<<"LA PIZZERIA DEL ORTO PUDO DECREMENTAR EL SEMAFORO"<<std::endl;
 	Logger::log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
 
 	for (size_t i = 0; i < this->childs.size() ; i++){
@@ -137,7 +138,6 @@ void Pizzeria::run(){
 		std::cout<<"mato al hijo "<< p << std::endl;
 		kill(p,SIGINT);
 	}
-	this->lockPizzeria->liberarLock();
 }
 
 void Pizzeria::crearCaja(){

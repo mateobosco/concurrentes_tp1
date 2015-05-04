@@ -31,3 +31,23 @@
 2015/05/04 16:36:53 - INFO: Creo el generador de llamados PID: 9409 - TP - Pizzeria
 2015/05/04 16:37:09 - INFO: Creo el generador de llamados PID: 9422 - TP - Pizzeria
 2015/05/04 17:09:42 - INFO: Creo el generador de llamados PID: 10636 - TP - Pizzeria
+2015/05/04 17:25:23 - INFO: Creo el generador de llamados PID: 10928 - TP - Pizzeria
+2015/05/04 17:25:23 - INFO: Se libera el lock para que terminen todos los procesos PID: 10927 - TP - Pizzeria
+2015/05/04 17:26:32 - INFO: Creo el generador de llamados PID: 11008 - TP - Pizzeria
+2015/05/04 17:28:48 - INFO: Creo el generador de llamados PID: 11089 - TP - Pizzeria
+2015/05/04 17:29:14 - INFO: Creo el generador de llamados PID: 11131 - TP - Pizzeria
+2015/05/04 17:29:33 - INFO: Creo el generador de llamados PID: 11169 - TP - Pizzeria
+2015/05/04 17:36:46 - INFO: Creo el generador de llamados PID: 11486 - TP - Pizzeria
+2015/05/04 17:37:33 - INFO: Creo el generador de llamados PID: 11544 - TP - Pizzeria
+2015/05/04 17:38:10 - INFO: Creo el generador de llamados PID: 11574 - TP - Pizzeria
+2015/05/04 17:42:05 - INFO: Creo el generador de llamados PID: 11709 - TP - Pizzeria
+2015/05/04 17:42:41 - INFO: Se libera el lock para que terminen todos los procesos PID: 11704 - TP - Pizzeria
+2015/05/04 17:42:55 - INFO: Creo el generador de llamados PID: 11738 - TP - Pizzeria
+2015/05/04 17:43:05 - INFO: Se libera el lock para que terminen todos los procesos PID: 11736 - TP - Pizzeria
+2015/05/04 17:47:27 - INFO: Creo el generador de llamados PID: 11779 - TP - Pizzeria
+2015/05/04 17:47:39 - INFO: Se libera el lock para que terminen todos los procesos PID: 11778 - TP - Pizzeria
+2015/05/04 17:47:51 - INFO: Creo el generador de llamados PID: 11809 - TP - Pizzeria
+2015/05/04 17:48:01 - INFO: Se libera el lock para que terminen todos los procesos PID: 11804 - TP - Pizzeria
+2015/05/04 17:48:59 - INFO: Creo el generador de llamados PID: 11858 - TP - Pizzeria
+2015/05/04 17:49:08 - INFO: Se libera el lock para que terminen todos los procesos PID: 11853 - TP - Pizzeria
+2015/05/04 17:51:02 - INFO: Creo el generador de llamados PID: 11920 - TP - Pizzeria

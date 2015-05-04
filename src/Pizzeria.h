@@ -12,7 +12,6 @@
 #include <vector>
 
 #include "structures/Semaforo.h"
-#include "structures/LockFile.h"
 
 #include "Proceso.h"
 #include "GeneradorLlamados.h"
@@ -39,8 +38,8 @@ public:
 
 private:
 	std::vector<int> childs;
-	LockFile* lockPizzeria;
 
+	Semaforo* semaforoPizzeriaGracefulQuit;
 	Semaforo* semaforoHornosLibres;
 	Semaforo* semaforoPedidosPendientes;
 

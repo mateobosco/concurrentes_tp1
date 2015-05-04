@@ -42,7 +42,7 @@ void Recepcionista::run(){
 		this->semaforoPedidosPendientes->v();
 
 		if (leidos == len){
-			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() << getpid() << std::endl;
+			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() <<"tengo pid: "<< getpid() << std::endl;
 			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
 			if (escritos != len){
 				std::cout<< "RECEPCIONISTA: ERROR Escribo " << escritos << std::endl;

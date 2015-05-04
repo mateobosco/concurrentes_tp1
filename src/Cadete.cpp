@@ -41,20 +41,16 @@ void Cadete::run(){
 		if(leidos == len){
 			std::cout<< "CADETE : leo una pizza"<<std::endl;
 		}
-		cout << " ================= CADETE LEE EL PRECIO DE LA ZAPPI  " << pizzaHorneada->getPrecio() << " pesos " << endl;
 		this->depositarEnCaja(pizzaHorneada->getPrecio());
 
 		delete pizzaHorneada;
 	}
-
-
 }
 
 void Cadete::depositarEnCaja(int precio) {
 	this->lockMemoriaCompartidaCaja->tomarLock();
 	Caja caja = this->memoriaCompartidaCaja->leer();
 	caja.sumarAlTotal(precio);
-	cout << " ================= AHORA EN LA CAJA HAY  " << caja.getTotal() << " pesos " << endl;
 	this->memoriaCompartidaCaja->escribir(caja);
 	this->lockMemoriaCompartidaCaja->liberarLock();
 }

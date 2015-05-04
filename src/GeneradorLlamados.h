@@ -11,7 +11,7 @@
 #include <iostream>
 
 #include "structures/FifoEscritura.h"
-#include "structures/LockFile.h"
+#include "structures/Semaforo.h"
 
 #include "Proceso.h"
 #include "Zappi.h"
@@ -25,7 +25,7 @@ public:
 private:
 	int seg;
 	FifoEscritura* fifoLlamadosGenerados;
-	LockFile* lockPizzeria;
+	Semaforo* semaforoPizzeriaGracefulQuit;
 };
 
 #endif /* GENERADORLLAMADOS_H_ */

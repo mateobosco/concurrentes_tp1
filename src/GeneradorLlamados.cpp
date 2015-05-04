@@ -13,12 +13,15 @@ GeneradorLlamados::GeneradorLlamados() {
 	this->fifoLlamadosGenerados = new FifoEscritura("/tmp/llamadosGenerados");
 	this->fifoLlamadosGenerados->abrir();
 
-	this->lockPizzeria = new LockFile("aux/lockPizzeria.txt");
-	this->lockPizzeria->tomarLock();
+	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt");
 }
 
 GeneradorLlamados::~GeneradorLlamados() {
 	std::cout << "Muere Generador de Llamados " << getpid() << std::endl;
+
+	this->semaforoPizzeriaGracefulQuit->eliminar();
+	delete this->semaforoPizzeriaGracefulQuit;
+
 	this->fifoLlamadosGenerados->cerrar();
 	this->fifoLlamadosGenerados->eliminar();
 	delete this->fifoLlamadosGenerados;
@@ -32,7 +35,7 @@ void GeneradorLlamados::run(){
 		Zappi* pizza = new Zappi("una de muzza", 10, 50);
 		size_t tamZappi = sizeof(Zappi);
 		ssize_t escritos = this->fifoLlamadosGenerados->escribir(static_cast<const void*>(pizza), tamZappi);
-		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<std::endl;
+		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<" de gusto: "<<pizza->getGusto()<<std::endl;
 
 		if (escritos != tamZappi){
 			std::cout<< "GENERADORPIZZAS: ERROR Escribo " << escritos << std::endl;
@@ -42,7 +45,8 @@ void GeneradorLlamados::run(){
 		sleep(this->seg);
 		i++;
 	}
-	this->lockPizzeria->liberarLock();
+	std::cout<< "LIBERO EL SEMAFORO PARA GRACEFUL QUIT"<< std::endl;
+	this->semaforoPizzeriaGracefulQuit->v();
 }
 
 
