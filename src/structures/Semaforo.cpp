@@ -7,6 +7,12 @@ Semaforo :: Semaforo ( const std::string& nombre,const int valorInicial ):valorI
 	this->inicializar ();
 }
 
+Semaforo :: Semaforo ( const std::string& nombre ){
+	key_t clave = ftok ( nombre.c_str(),'a' );
+	this->id = semget ( clave,1,0666 | IPC_CREAT );
+
+}
+
 Semaforo::~Semaforo() {
 }
 

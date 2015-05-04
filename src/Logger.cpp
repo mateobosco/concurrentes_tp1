@@ -7,7 +7,7 @@
 
 #include "Logger.h"
 
-std::string Logger::file = "log.txt";
+std::string Logger::file = "aux/log.txt";
 int Logger::ERROR = 2;
 int Logger::INFO = 1;
 

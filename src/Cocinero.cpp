@@ -14,7 +14,7 @@ Cocinero::Cocinero() {
 	this->colaPizzasHornear = new FifoEscritura("/tmp/pizzasHornear");
 	this->colaPizzasHornear->abrir();
 
-	this->lockHornosOcupados = new LockFile("lockHornosOcupados.txt");
+	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt");
 }
 
 Cocinero::~Cocinero() {
@@ -28,7 +28,8 @@ Cocinero::~Cocinero() {
 	this->colaPizzasHornear->eliminar();
 	delete this->colaPizzasHornear;
 
-//	delete this->lockHornosOcupados;
+	this->semaforoHornosLibres->eliminar();
+	delete this->semaforoHornosLibres;
 }
 
 void Cocinero::run(){
@@ -37,11 +38,12 @@ void Cocinero::run(){
 	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaCocinar = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
-		std::cout << "COCINERO Espero para leer "<<getpid() << std::endl;
+
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);
 
 		if(leidos == len){
 			std::cout<< "COCINERO: leo una pizza"<<std::endl;
+			this->ocuparHorno();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
 
 			if (escritos != len){
@@ -50,13 +52,12 @@ void Cocinero::run(){
 			else{
 				//leer memoria compartida, si hay mas del doble de PT  que los PC
 				// lockear a las recepcionistas. Despues deslockearlas.
-
 			}
-
 		}
-
 		delete pizzaCocinar;
-
 	}
 }
 
+void Cocinero::ocuparHorno(){
+	this->semaforoHornosLibres->v();
+}

@@ -10,8 +10,7 @@
 
 #include "structures/FifoLectura.h"
 #include "structures/FifoEscritura.h"
-#include "structures/MemoriaCompartida.h"
-#include "structures/LockFile.h"
+#include "structures/Semaforo.h"
 
 #include "Proceso.h"
 #include "Zappi.h"
@@ -22,15 +21,13 @@ public:
 	virtual ~Horno();
 	void run();
 
-	void liberarHorno();
-	void ocuparHorno();
+	void incrementarHornosLibres();
 
 private:
 	FifoLectura* colaPizzasHornear;
 	FifoEscritura* colaPizzaHorneadas;
 
-	MemoriaCompartida<int>* cantHornosLibres;
-	LockFile* lockHornosOcupados;
+	Semaforo* semaforoHornosLibres;
 };
 
 #endif /* HORNO_H_ */

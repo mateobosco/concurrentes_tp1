@@ -14,14 +14,11 @@ Horno::Horno() {
 	this->colaPizzaHorneadas = new FifoEscritura("/tmp/pizzasHorneadas");
 	this->colaPizzaHorneadas->abrir();
 
-	this->lockHornosOcupados = new LockFile("lockHornosOcupados.txt");
-	this->cantHornosLibres = new MemoriaCompartida<int>();
-	this->cantHornosLibres->crear("cantHornosLibres.txt",'R');
-	this->liberarHorno();
+	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt");
+	this->incrementarHornosLibres();
 }
 
 Horno::~Horno() {
-	this->ocuparHorno();
 
 	this->colaPizzasHornear->cerrar();
 	this->colaPizzasHornear->eliminar();
@@ -31,9 +28,8 @@ Horno::~Horno() {
 	this->colaPizzaHorneadas->eliminar();
 	delete this->colaPizzaHorneadas;
 
-//	delete this->lockHornosOcupados;
-	this->cantHornosLibres->liberar();
-	delete this->cantHornosLibres;
+	this->semaforoHornosLibres->eliminar();
+	delete this->semaforoHornosLibres;
 }
 
 void Horno::run(){
@@ -46,29 +42,17 @@ void Horno::run(){
 
 		if(leidos == len){
 			std::cout<< "HORNO : leo una pizza"<<std::endl;
-			this->ocuparHorno();
+			this->semaforoHornosLibres->v();
+
+//			this->ocuparHorno();
 			pizzaHornear->cocinarse();
 			this->colaPizzaHorneadas->escribir((void*) pizzaHornear, len);
-			this->liberarHorno();
+			this->incrementarHornosLibres();
 		}
 		delete pizzaHornear;
 	}
 }
 
-void Horno::ocuparHorno(){
-	int hornos = this->cantHornosLibres->leer();
-	hornos --;
-	this->cantHornosLibres->escribir(hornos);
-	if (hornos == 0){
-		this->lockHornosOcupados->tomarLock();
-	}
-}
-
-void Horno::liberarHorno(){
-	int hornos = this->cantHornosLibres->leer();
-	hornos ++;
-	this->cantHornosLibres->escribir(hornos);
-	if (hornos == 1){
-		this->lockHornosOcupados->liberarLock();
-	}
+void Horno::incrementarHornosLibres(){
+	this->semaforoHornosLibres->v();
 }

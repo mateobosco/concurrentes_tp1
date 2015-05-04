@@ -16,6 +16,7 @@ private:
 
 public:
 	Semaforo ( const std::string& nombre,const int valorInicial );
+	Semaforo ( const std::string& nombre);
 	~Semaforo();
 
 	int p () const; // decrementa

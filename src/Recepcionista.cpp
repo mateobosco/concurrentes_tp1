@@ -32,7 +32,7 @@ void Recepcionista::run(){
 
 		Zappi* pizzaLeida = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
-		std::cout << "RECEPCIONISTA Espero para leer "<<getpid() << std::endl;
+//		std::cout << "RECEPCIONISTA Espero para leer "<<getpid() << std::endl;
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);
 
 		if (leidos == len){

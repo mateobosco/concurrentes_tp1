@@ -1,0 +1,26 @@
+2015/04/29 23:16:43 - INFO: Empieza el programa PID: 1171 - concurrentes_tp
+2015/04/29 23:16:43 - INFO: Creo el generador de llamados PID: 1177 - TP - Pizzeria
+2015/04/30 18:57:56 - INFO: Creo el generador de llamados PID: 9520 - TP - Pizzeria
+2015/04/30 18:59:56 - INFO: Creo el generador de llamados PID: 9611 - TP - Pizzeria
+2015/04/30 19:00:50 - INFO: Creo el generador de llamados PID: 9698 - TP - Pizzeria
+2015/04/30 19:01:32 - INFO: Creo el generador de llamados PID: 9802 - TP - Pizzeria
+2015/04/30 19:01:50 - INFO: Creo el generador de llamados PID: 9848 - TP - Pizzeria
+2015/04/30 19:03:19 - INFO: Creo el generador de llamados PID: 9932 - TP - Pizzeria
+2015/04/30 19:04:55 - INFO: Creo el generador de llamados PID: 10043 - TP - Pizzeria
+2015/04/30 19:05:45 - INFO: Creo el generador de llamados PID: 10113 - TP - Pizzeria
+2015/04/30 19:07:02 - INFO: Creo el generador de llamados PID: 10170 - TP - Pizzeria
+2015/05/04 15:06:53 - INFO: Creo el generador de llamados PID: 6094 - TP - Pizzeria
+2015/05/04 15:09:24 - INFO: Creo el generador de llamados PID: 6182 - TP - Pizzeria
+2015/05/04 15:09:51 - INFO: Creo el generador de llamados PID: 6229 - TP - Pizzeria
+2015/05/04 15:46:01 - INFO: Creo el generador de llamados PID: 7204 - TP - Pizzeria
+2015/05/04 15:46:48 - INFO: Creo el generador de llamados PID: 7266 - TP - Pizzeria
+2015/05/04 15:47:36 - INFO: Creo el generador de llamados PID: 7321 - TP - Pizzeria
+2015/05/04 15:47:53 - INFO: Creo el generador de llamados PID: 7333 - TP - Pizzeria
+2015/05/04 15:48:42 - INFO: Creo el generador de llamados PID: 7384 - TP - Pizzeria
+2015/05/04 15:50:07 - INFO: Creo el generador de llamados PID: 7503 - TP - Pizzeria
+2015/05/04 15:51:24 - INFO: Creo el generador de llamados PID: 7622 - TP - Pizzeria
+2015/05/04 15:51:59 - INFO: Creo el generador de llamados PID: 7673 - TP - Pizzeria
+2015/05/04 15:52:29 - INFO: Creo el generador de llamados PID: 7715 - TP - Pizzeria
+2015/05/04 16:01:20 - INFO: Creo el generador de llamados PID: 7925 - TP - Pizzeria
+2015/05/04 16:03:39 - INFO: Creo el generador de llamados PID: 8058 - TP - Pizzeria
+2015/05/04 16:03:45 - INFO: Creo el generador de llamados PID: 8070 - TP - Pizzeria

@@ -11,6 +11,9 @@
 #include <stdlib.h>
 #include <vector>
 
+#include "structures/Semaforo.h"
+#include "structures/LockFile.h"
+
 #include "Proceso.h"
 #include "GeneradorLlamados.h"
 #include "Recepcionista.h"
@@ -18,7 +21,7 @@
 #include "Horno.h"
 #include "Cadete.h"
 #include "Supervisora.h"
-#include "structures/MemoriaCompartida.h"
+#include "Caja.h"
 
 class Pizzeria: public Proceso {
 public:
@@ -37,8 +40,8 @@ public:
 private:
 	std::vector<int> childs;
 	LockFile* lockPizzeria;
-	MemoriaCompartida<int>* cantHornosLibres;
-	LockFile* lockHornosOcupados;
+
+	Semaforo* semaforoHornosLibres;
 };
 
 #endif /* PIZZERIA_H_ */
