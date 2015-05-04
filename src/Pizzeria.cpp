@@ -21,14 +21,15 @@ Pizzeria::Pizzeria() {
 }
 
 Pizzeria::~Pizzeria() {
+	std::cout<<"Llamo al destructor de pizzeria"<<std::endl;
 	this->semaforoPizzeriaGracefulQuit->eliminar();
 	delete this->semaforoPizzeriaGracefulQuit;
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
 
-	this->semaforoHornosLibres->eliminar();
-	delete this->semaforoHornosLibres;
+	this->semaforoPedidosPendientes->eliminar();
+	delete this->semaforoPedidosPendientes;
 
 	this->memoriaCompartidaCaja->liberar();
 	delete this->memoriaCompartidaCaja;
@@ -42,7 +43,7 @@ void Pizzeria::crearGeneradorLlamados(){
 		GeneradorLlamados* generador = new GeneradorLlamados();
 		generador->run();
 		delete generador;
-		exit(0);
+		return;
 	}
 }
 
@@ -55,7 +56,7 @@ void Pizzeria::crearRecepcionistas(int n){
 			std::cout << "Creo una recepcionista con pid "<< getpid() << std::endl;
 			r->run();
 			delete r;
-			exit(0);
+			return;
 		}
 		else{
 			this->childs.push_back(pid_recepcionista);
@@ -72,7 +73,7 @@ void Pizzeria::crearCocineros(int n){
 			std::cout<<"Creo un cocinero con pid "<< getpid()<<std::endl;
 			c->run();
 			delete c;
-			exit(0);
+			return;
 		}
 		else{
 			this->childs.push_back(pid_cocinero);
@@ -88,7 +89,7 @@ void Pizzeria::crearHornos(int n){
 			std::cout<<"Creo un horno con pid "<< getpid()<<std::endl;
 			h->run();
 			delete h;
-			exit(0);
+			return;
 		}
 		else{
 			this->childs.push_back(pid_horno);
@@ -104,7 +105,7 @@ void Pizzeria::crearCadetes(int n){
 			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
 			c->run();
 			delete c;
-			exit(0);
+			return;
 		}
 		else{
 			this->childs.push_back(pid_cadete);
@@ -119,7 +120,7 @@ void Pizzeria::crearSupervisora(int segundos){
 			std::cout<<"Creo una supervisora con pid "<< getpid()<<std::endl;
 			s->run();
 			delete s;
-			exit(0);
+			return;
 		}
 		else{
 			this->childs.push_back(pid_supervisora);

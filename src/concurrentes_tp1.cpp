@@ -14,17 +14,19 @@
 using namespace std;
 
 int main() {
-	cout << "!!!PROCESO!!! "<< getpid() << endl;
+	int pid = getpid();
+	cout << "!!!PROCESO!!! "<< pid << endl;
 
 	Pizzeria p = Pizzeria();
-	p.crearCaja();
-	p.crearGeneradorLlamados();
-	p.crearRecepcionistas(1);
-	p.crearCocineros(1);
-	p.crearHornos(1);
-	p.crearCadetes(1);
-	p.crearSupervisora(4);
-	p.run();
+	if (getpid() == pid) p.crearCaja();
+	if (getpid() == pid) p.crearGeneradorLlamados();
+	if (getpid() == pid) p.crearRecepcionistas(1);
+	if (getpid() == pid) p.crearCocineros(1);
+	if (getpid() == pid) p.crearHornos(1);
+	if (getpid() == pid) p.crearCadetes(1);
+	if (getpid() == pid) p.crearSupervisora(4);
+	if (getpid() == pid) p.run();
 
+	cout<<"FINALIZA EL PROGRAMA"<<endl;
 	return 0;
 }
