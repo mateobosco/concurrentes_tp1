@@ -26,6 +26,7 @@ private:
 	FifoLectura* colaPedidosCocinar;
 	FifoEscritura* colaPizzasHornear;
 	Semaforo* semaforoHornosLibres;
+	Semaforo* semaforoPedidosPendientes;
 };
 
 #endif /* COCINERO_H_ */

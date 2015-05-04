@@ -15,6 +15,7 @@ Cocinero::Cocinero() {
 	this->colaPizzasHornear->abrir();
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt");
+	this->semaforoPedidosPendientes = new Semaforo("semaforoPedidosPendientes.txt");
 }
 
 Cocinero::~Cocinero() {
@@ -30,6 +31,9 @@ Cocinero::~Cocinero() {
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
+
+	this->semaforoPedidosPendientes->eliminar();
+	delete this->semaforoPedidosPendientes;
 }
 
 void Cocinero::run(){
@@ -59,5 +63,6 @@ void Cocinero::run(){
 }
 
 void Cocinero::ocuparHorno(){
-	this->semaforoHornosLibres->v();
+	this->semaforoPedidosPendientes->v();
+	this->semaforoHornosLibres->p();
 }

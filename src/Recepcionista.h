@@ -10,6 +10,7 @@
 
 #include "structures/FifoLectura.h"
 #include "structures/FifoEscritura.h"
+#include "structures/Semaforo.h"
 
 #include "Proceso.h"
 #include "Zappi.h"
@@ -23,6 +24,7 @@ public:
 private:
 	FifoLectura* colaPedidosRecibir;
 	FifoEscritura* colaPedidosCocinar;
+	Semaforo* semaforoPedidosPendientes;
 };
 
 #endif /* RECEPCIONISTA_H_ */

@@ -14,6 +14,7 @@ Pizzeria::Pizzeria() {
 	this->lockPizzeria = new LockFile("aux/lockPizzeria.txt");
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt",0);
+	this->semaforoPedidosPendientes = NULL; //Se crea cuando se sabe la cantidad de cocineros a crear.
 
 	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
 	this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
@@ -21,6 +22,9 @@ Pizzeria::Pizzeria() {
 
 Pizzeria::~Pizzeria() {
 	delete this->lockPizzeria;
+
+	this->semaforoHornosLibres->eliminar();
+	delete this->semaforoHornosLibres;
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
@@ -59,6 +63,7 @@ void Pizzeria::crearRecepcionistas(int n){
 }
 
 void Pizzeria::crearCocineros(int n){
+	this->semaforoPedidosPendientes = new Semaforo("semaforoPedidosPendientes.txt",n*2);
 	for (int i = 0; i < n ; i++){
 		int pid_cocinero = fork();
 		if (pid_cocinero == 0) { //Proceso hijo -> cocinero

@@ -42,6 +42,7 @@ private:
 	LockFile* lockPizzeria;
 
 	Semaforo* semaforoHornosLibres;
+	Semaforo* semaforoPedidosPendientes;
 
 	MemoriaCompartida<Caja>* memoriaCompartidaCaja;
 };

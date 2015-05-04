@@ -13,6 +13,8 @@ Recepcionista::Recepcionista() {
 
 	this->colaPedidosCocinar = new FifoEscritura("/tmp/pedidosCocinar");
 	this->colaPedidosCocinar->abrir();
+
+	this->semaforoPedidosPendientes = new Semaforo("semaforoPedidosPendientes.txt");
 }
 
 Recepcionista::~Recepcionista() {
@@ -24,6 +26,9 @@ Recepcionista::~Recepcionista() {
 	this->colaPedidosCocinar->cerrar();
 	this->colaPedidosCocinar->eliminar();
 	delete this->colaPedidosCocinar;
+
+	this->semaforoPedidosPendientes->eliminar();
+	delete this->semaforoPedidosPendientes;
 }
 
 void Recepcionista::run(){
@@ -34,6 +39,7 @@ void Recepcionista::run(){
 		size_t len = sizeof(Zappi);
 //		std::cout << "RECEPCIONISTA Espero para leer "<<getpid() << std::endl;
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);
+		this->semaforoPedidosPendientes->v();
 
 		if (leidos == len){
 			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() << getpid() << std::endl;
