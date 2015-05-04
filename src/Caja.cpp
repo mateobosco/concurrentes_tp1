@@ -14,7 +14,7 @@ Caja::~Caja() {
 }
 
 
-void Caja::sumaralTotal(int cantidad){
+void Caja::sumarAlTotal(int cantidad){
     this->total+=cantidad;
 }
 

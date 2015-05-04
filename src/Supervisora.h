@@ -7,14 +7,27 @@
 
 #include <iostream>
 
+#include "structures/MemoriaCompartida.h"
+#include "structures/LockFile.h"
+
 #include "Proceso.h"
 #include "Zappi.h"
+#include "Caja.h"
 
 class Supervisora: public Proceso {
-    Supervisora();
+public:
+	Supervisora(int segundos);
     virtual ~Supervisora();
     void run();
 
+private:
+    void controlarCaja();
+    void dormir();
+
+    int segundos;
+
+	MemoriaCompartida<Caja>* memoriaCompartidaCaja;
+	LockFile* lockMemoriaCompartidaCaja;
 };
 
 

@@ -14,6 +14,9 @@ Pizzeria::Pizzeria() {
 	this->lockPizzeria = new LockFile("aux/lockPizzeria.txt");
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt",0);
+
+	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
+	this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
 }
 
 Pizzeria::~Pizzeria() {
@@ -21,6 +24,9 @@ Pizzeria::~Pizzeria() {
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
+
+	this->memoriaCompartidaCaja->liberar();
+	delete this->memoriaCompartidaCaja;
 }
 
 void Pizzeria::crearGeneradorLlamados(){
@@ -100,13 +106,13 @@ void Pizzeria::crearCadetes(int n){
 	}
 }
 
-void Pizzeria::crearSupervisora(){
+void Pizzeria::crearSupervisora(int segundos){
 		int pid_supervisora = fork();
 		if (pid_supervisora == 0){ //Proceso hijo -> cadete
-			//Supervisora* s = new Supervisora();
-//			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
-			//s->run();
-			//delete s;
+			Supervisora* s = new Supervisora(segundos);
+			std::cout<<"Creo una supervisora con pid "<< getpid()<<std::endl;
+			s->run();
+			delete s;
 			exit(0);
 		}
 		else{
@@ -130,28 +136,6 @@ void Pizzeria::run(){
 }
 
 void Pizzeria::crearCaja(){
-	//string archivo ( "../Pizzeria.cpp" );
-	char cwd[1024];
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		fprintf(stdout, "Current working dir: %s\n", cwd);
-	string archivo = string(cwd);
-	archivo.append("/src/Pizzeria.cpp"); // TODO VER COMO ARREGLAR ESTO
-	MemoriaCompartida<Caja> memoria;
 	Caja caja = Caja();
-	LockFile lock ( "aux/Cadete.cpp" );
-	lock.tomarLock();
-	cout << "La pizzeria" << getpid() << "toma el lock" << endl;
-	int estadoMemoria = memoria.crear ( archivo,'R' );
-	if ( estadoMemoria == SHM_OK ) {
-		memoria.escribir ( caja );
-
-		//memoria.liberar (); TODO liberar memoria compartida cuando termine
-	} else {
-		cout << "Padre: error en memoria compartida: " << estadoMemoria << endl;
-	}
-	lock.liberarLock();
-	cout << "La pizzeria  "<< getpid() << "libero el lock" << endl;
-
-
-
+	this->memoriaCompartidaCaja->escribir(caja);
 }

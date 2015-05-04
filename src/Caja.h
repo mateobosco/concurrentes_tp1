@@ -10,9 +10,8 @@ class Caja {
 public:
     Caja();
     virtual ~Caja();
-    void run();
 
-    void sumaralTotal(int cantidad);
+    void sumarAlTotal(int cantidad);
     int getTotal();
 
 private:

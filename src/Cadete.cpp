@@ -6,20 +6,28 @@
  */
 
 #include "Cadete.h"
-#include "Caja.h"
-#include "structures/LockFile.h"
 
 using namespace std;
 
 Cadete::Cadete() {
 	this->colaPizzasHorneadas = new FifoLectura("/tmp/pizzasHorneadas");
 	this->colaPizzasHorneadas->abrir();
+
+	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
+	this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
+
+	this->lockMemoriaCompartidaCaja = new LockFile("aux/lockMemoriaCompartidaCaja.txt");
 }
 
 Cadete::~Cadete() {
 	this->colaPizzasHorneadas->cerrar();
 	this->colaPizzasHorneadas->eliminar();
 	delete this->colaPizzasHorneadas;
+
+	this->memoriaCompartidaCaja->liberar();
+	delete this->memoriaCompartidaCaja;
+
+	delete this->lockMemoriaCompartidaCaja;
 }
 
 void Cadete::run(){
@@ -42,33 +50,11 @@ void Cadete::run(){
 
 }
 
-void Cadete::depositarEnCaja(int total) {
-	char cwd[1024];
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		fprintf(stdout, "Current working dir: %s\n", cwd);
-	string archivo = string(cwd);
-	archivo.append("/src/Pizzeria.cpp"); // TODO VER COMO ARREGLAR ESTO
-	LockFile lock ( "Cadete.cpp" );
-	lock.tomarLock();
-	cout << "Cadete" << getpid() << "toma el lock" << endl;
-	MemoriaCompartida<Caja> memoria;
-	Caja caja;
-	int estadoMemoria = memoria.crear(archivo, 'R');
-	if (estadoMemoria == SHM_OK) {
-		caja = memoria.leer();
-		cout << "Cadete ve que en la caja hay " << caja.getTotal() << " pesos " << endl;
-		cout << "Cadete deposita lo cobrado en la caja " << endl;
-		caja.sumaralTotal(total);
-		cout << "Ahora en la caja hay " << caja.getTotal() << " pesos " << endl;
-
-		memoria.escribir(caja);
-		//memoria.escribir ( resultado+total );
-
-		// memoria.liberar (); TODO ver cuando liberar
-	} else {
-		cout << "Hijo: error en memoria compartida: " << estadoMemoria << endl;
-	}
-	lock.liberarLock();
-	cout << "El cadete "<< getpid() << "libero el lock" << endl;
-
+void Cadete::depositarEnCaja(int precio) {
+	this->lockMemoriaCompartidaCaja->tomarLock();
+	Caja caja = this->memoriaCompartidaCaja->leer();
+	caja.sumarAlTotal(precio);
+	cout << " ================= AHORA EN LA CAJA HAY  " << caja.getTotal() << " pesos " << endl;
+	this->memoriaCompartidaCaja->escribir(caja);
+	this->lockMemoriaCompartidaCaja->liberarLock();
 }

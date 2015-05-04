@@ -32,7 +32,7 @@ public:
 	void crearCocineros(int n);
 	void crearHornos(int n);
 	void crearCadetes(int n);
-	void crearSupervisora();
+	void crearSupervisora(int segundos);
 	void crearCaja();
 
 	void run();
@@ -42,6 +42,8 @@ private:
 	LockFile* lockPizzeria;
 
 	Semaforo* semaforoHornosLibres;
+
+	MemoriaCompartida<Caja>* memoriaCompartidaCaja;
 };
 
 #endif /* PIZZERIA_H_ */
