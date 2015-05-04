@@ -45,7 +45,7 @@ void Cocinero::run(){
 
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);
 
-		if(leidos == len){
+		if(leidos == (ssize_t) len){
 			std::cout<< "COCINERO: leo una pizza"<<std::endl;
 			this->ocuparHorno();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);

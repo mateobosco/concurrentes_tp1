@@ -37,7 +37,7 @@ void GeneradorLlamados::run(){
 		ssize_t escritos = this->fifoLlamadosGenerados->escribir(static_cast<const void*>(pizza), tamZappi);
 		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<" de gusto: "<<pizza->getGusto()<<std::endl;
 
-		if (escritos != tamZappi){
+		if (escritos != (ssize_t)tamZappi){
 			std::cout<< "GENERADORPIZZAS: ERROR Escribo " << escritos << std::endl;
 		}
 

@@ -40,7 +40,7 @@ void Horno::run(){
 		std::cout << "HORNO: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHornear->leer((void*) pizzaHornear, len);
 
-		if(leidos == len){
+		if(leidos == (ssize_t) len){
 			std::cout<< "HORNO : leo una pizza"<<std::endl;
 			this->semaforoHornosLibres->v();
 

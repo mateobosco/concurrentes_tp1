@@ -38,7 +38,7 @@ void Cadete::run(){
 //		std::cout << "CADETE: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHorneadas->leer((void*) pizzaHorneada, len);
 
-		if(leidos == len){
+		if(leidos == (ssize_t) len){
 			std::cout<< "CADETE : leo una pizza"<<std::endl;
 		}
 		this->depositarEnCaja(pizzaHorneada->getPrecio());

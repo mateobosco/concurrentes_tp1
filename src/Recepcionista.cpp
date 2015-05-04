@@ -41,7 +41,7 @@ void Recepcionista::run(){
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);
 		this->semaforoPedidosPendientes->v();
 
-		if (leidos == len){
+		if (leidos == (ssize_t)len){
 			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() <<"tengo pid: "<< getpid() << std::endl;
 			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
 			if (escritos != len){
