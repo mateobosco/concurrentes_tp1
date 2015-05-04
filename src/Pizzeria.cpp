@@ -28,8 +28,10 @@ Pizzeria::~Pizzeria() {
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
 
-	this->semaforoPedidosPendientes->eliminar();
-	delete this->semaforoPedidosPendientes;
+	if (this->semaforoPedidosPendientes != NULL){
+		this->semaforoPedidosPendientes->eliminar();
+		delete this->semaforoPedidosPendientes;
+	}
 
 	this->memoriaCompartidaCaja->liberar();
 	delete this->memoriaCompartidaCaja;
