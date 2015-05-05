@@ -29,6 +29,9 @@ GeneradorLlamados::~GeneradorLlamados() {
 
 void GeneradorLlamados::run(){
 	this->changeName("TP - GeneradorLlamados");
+
+	this->semaforoIniciador->p();
+
 	int i = 0;
 	while (sigint_handler.getGracefulQuit() == 0){
 

@@ -54,6 +54,19 @@ int Semaforo :: v () const {
 	return resultado;
 }
 
+int Semaforo :: vN (const int n) const {
+
+	struct sembuf operacion;
+
+	operacion.sem_num = 0;	// numero de semaforo
+	operacion.sem_op  = n;	// sumar 1 al semaforo
+	operacion.sem_flg = SEM_UNDO;
+
+	int resultado = semop ( this->id,&operacion,1 );
+	return resultado;
+}
+
+
 void Semaforo :: eliminar () const {
 	semctl ( this->id,0,IPC_RMID );
 }

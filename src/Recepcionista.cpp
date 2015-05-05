@@ -33,6 +33,9 @@ Recepcionista::~Recepcionista() {
 
 void Recepcionista::run(){
 	this->changeName("TP - Recepcionista");
+
+	this->semaforoIniciador->p();
+
 	while (sigint_handler.getGracefulQuit() == 0){
 
 		Zappi* pizzaLeida = new Zappi("",0,0);

@@ -37,8 +37,10 @@ Cocinero::~Cocinero() {
 }
 
 void Cocinero::run(){
-	//for( int i = 0; i< 10 ; i++){
 	this->changeName("TP - Cocinero");
+
+	this->semaforoIniciador->p();
+
 	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaCocinar = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);

@@ -32,6 +32,9 @@ Cadete::~Cadete() {
 
 void Cadete::run(){
 	this->changeName("TP - Cadete");
+
+	this->semaforoIniciador->p();
+
 	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaHorneada = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
