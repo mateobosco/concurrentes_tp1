@@ -20,6 +20,9 @@ Cadete::Cadete() {
 		Logger::log(Logger::INFO,"ERROR: Error al crear la Memoria Compartida en el Cadete");
 	}
 	this->lockMemoriaCompartidaCaja = new LockFile("aux/lockMemoriaCompartidaCaja.txt");
+
+	this->semaforoCadetesLibres = new Semaforo("aux/semaforoCadetesLibres.txt");
+	this->liberarCadete();
 }
 
 Cadete::~Cadete() {
@@ -31,6 +34,9 @@ Cadete::~Cadete() {
 	delete this->memoriaCompartidaCaja;
 
 	delete this->lockMemoriaCompartidaCaja;
+
+	this->semaforoCadetesLibres->eliminar();
+	delete this->semaforoCadetesLibres;
 }
 
 void Cadete::run(){
@@ -51,6 +57,7 @@ void Cadete::run(){
 			Logger::log(Logger::ERROR," Error al leer la pizza");
 		}
 		this->depositarEnCaja(pizzaHorneada->getPrecio());
+		this->liberarCadete();
 
 		delete pizzaHorneada;
 	}
@@ -60,7 +67,13 @@ void Cadete::depositarEnCaja(int precio) {
 	this->lockMemoriaCompartidaCaja->tomarLock();
 	Caja caja = this->memoriaCompartidaCaja->leer();
 	caja.sumarAlTotal(precio);
-	Logger::log(Logger::INFO,"El el cadete guardo en la caja " + std::to_string(precio));
+	std::ostringstream os ;
+	os << precio;
+	Logger::log(Logger::INFO,"El el cadete guardo en la caja " + os.str());
 	this->memoriaCompartidaCaja->escribir(caja);
 	this->lockMemoriaCompartidaCaja->liberarLock();
+}
+
+void Cadete::liberarCadete(){
+	this->semaforoCadetesLibres->v();
 }

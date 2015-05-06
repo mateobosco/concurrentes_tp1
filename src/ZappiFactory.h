@@ -5,8 +5,11 @@
 #ifndef CONCURRENTES_TP1_ZAPPIFACTORY_H
 #define CONCURRENTES_TP1_ZAPPIFACTORY_H
 
-#include "Zappi.h"
+#include <stdlib.h>
 #include <vector>
+
+#include "Zappi.h"
+
 
 typedef struct TipoPizza{
     std::string	nombre ;

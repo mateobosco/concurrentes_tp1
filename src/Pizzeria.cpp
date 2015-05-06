@@ -20,6 +20,7 @@ Pizzeria::Pizzeria() {
 	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt",0);
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt",0);
+	this->semaforoCadetesLibres = new Semaforo("aux/semaforoCadetesLibres.txt",0);
 	this->semaforoPedidosPendientes = NULL; //Se crea cuando se sabe la cantidad de cocineros a crear.
 
 	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
@@ -37,6 +38,9 @@ Pizzeria::~Pizzeria() {
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
+
+	this->semaforoCadetesLibres->eliminar();
+	delete this->semaforoCadetesLibres;
 
 	if (this->semaforoPedidosPendientes != NULL){
 		this->semaforoPedidosPendientes->eliminar();

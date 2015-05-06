@@ -28,6 +28,7 @@ private:
 	FifoEscritura* colaPizzaHorneadas;
 
 	Semaforo* semaforoHornosLibres;
+	Semaforo* semaforoCadetesLibres;
 };
 
 #endif /* HORNO_H_ */

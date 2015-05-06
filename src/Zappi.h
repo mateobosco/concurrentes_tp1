@@ -14,6 +14,7 @@
 
 class Zappi {
 public:
+	Zappi();
 	Zappi(std::string gusto, int duracion, int precio);
 	virtual ~Zappi();
 

@@ -41,6 +41,8 @@ void Supervisora::controlarCaja(){
 	Caja caja = this->memoriaCompartidaCaja->leer();
 	int total = caja.getTotal();
 	std::cout<<"SUPERVISORA: Leo que en la caja hay "<<total<<" pesos"<<std::endl;
-	Logger::log(Logger::INFO,"La supervisora revisa la caja y checkea que hay " + std::to_string(total));
+	std::ostringstream os ;
+	os << total;
+	Logger::log(Logger::INFO,"La supervisora revisa la caja y checkea que hay " + os.str());
 	this->lockMemoriaCompartidaCaja->liberarLock();
 }

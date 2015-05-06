@@ -42,6 +42,7 @@ private:
 	Semaforo* semaforoPizzeriaGracefulQuit;
 	Semaforo* semaforoHornosLibres;
 	Semaforo* semaforoPedidosPendientes;
+	Semaforo* semaforoCadetesLibres;
 
 	MemoriaCompartida<Caja>* memoriaCompartidaCaja;
 };

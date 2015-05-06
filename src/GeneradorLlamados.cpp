@@ -32,12 +32,13 @@ void GeneradorLlamados::run(){
 	int i = 0;
 	while (sigint_handler.getGracefulQuit() == 0){
 		ZappiFactory zappiFactory;
-//		Zappi* pizza = new Zappi(gusto.nombre, gusto.duracion , gusto.precio);
 		Zappi* pizza = zappiFactory.generarZappiRandom();
 		size_t tamZappi = sizeof(Zappi);
 		ssize_t escritos = this->fifoLlamadosGenerados->escribir(static_cast<const void*>(pizza), tamZappi);
 		std::cout<<"GENERADORPIZZAS: Genere la pizza nro: " << i <<" de gusto: "<<pizza->getGusto()<<std::endl;
-		Logger::log(Logger::INFO,"El generador de llamados genera la Pizza nro: " + std::to_string(i) );
+		std::ostringstream os ;
+		os << i;
+		Logger::log(Logger::INFO,"El generador de llamados genera la Pizza nro: " + os.str() );
 		if (escritos != (ssize_t)tamZappi){
 			std::cout<< "GENERADORPIZZAS: ERROR Escribo " << escritos << std::endl;
 			Logger::log(Logger::ERROR,"Problema al escribir la Pizza");

@@ -13,6 +13,7 @@
 #include "structures/FifoLectura.h"
 #include "structures/MemoriaCompartida.h"
 #include "structures/LockFile.h"
+#include "structures/Semaforo.h"
 
 #include "Proceso.h"
 #include "Zappi.h"
@@ -25,12 +26,14 @@ public:
 	virtual ~Cadete();
 	void run();
 	void depositarEnCaja(int precio);
+	void liberarCadete();
 
 private:
 	FifoLectura* colaPizzasHorneadas;
 
 	MemoriaCompartida<Caja>* memoriaCompartidaCaja;
 	LockFile* lockMemoriaCompartidaCaja;
+	Semaforo* semaforoCadetesLibres;
 };
 
 #endif /* CADETE_H_ */
