@@ -9,13 +9,11 @@
 
 using namespace std;
 
-Pizzeria::Pizzeria() {
-
+Pizzeria::Pizzeria(bool debug) {
+	Logger::setDebug(debug);
+	Logger::log(Logger::INFO, "blabla");
 	std::string string = Logger::file;
-	int resultado = remove(string.c_str());
-	if (resultado != 0){
-		Logger::log(Logger::ERROR, " No se puede borrar el log anterior");
-	}
+	remove(string.c_str());
 	this->changeName("TP - Pizzeria");
 	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt",0);
 
@@ -26,7 +24,6 @@ Pizzeria::Pizzeria() {
 	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
 	int estadoMemoria = this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
 	if ( estadoMemoria != SHM_OK ) {
-		//cout << "Error en memoria compartida: " << estadoMemoria << endl;
 		Logger::log(Logger::ERROR," problema al crear la Memoria Compartida en la pizzeria");
 	}
 }

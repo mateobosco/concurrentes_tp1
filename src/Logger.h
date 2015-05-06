@@ -25,10 +25,12 @@ public:
 	static std::string file;
 	static int ERROR;
 	static int INFO;
+	static bool debug;
 
 	static void log(int level, std::string message);
 	static std::string getTime();
 	static std::string getProcessInfo();
+	static void setDebug(bool value);
 };
 
 #endif /* LOGGER_H_ */

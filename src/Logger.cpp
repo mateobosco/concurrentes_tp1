@@ -10,7 +10,7 @@
 std::string Logger::file = "aux/log.txt";
 int Logger::ERROR = 2;
 int Logger::INFO = 1;
-
+bool Logger::debug = true;
 
 Logger::Logger() {
 }
@@ -19,7 +19,7 @@ Logger::~Logger() {
 }
 
 void Logger::log(int level, std::string message){
-
+	if (! Logger::debug) return;
 	std::string line;
 	if (level == Logger::INFO){
 		line = Logger::getTime() + " - " + "INFO: " + message + " " + Logger::getProcessInfo() + "\n";
@@ -61,4 +61,8 @@ std::string Logger::getProcessInfo(){
 
 	std::string info = "PID: " + pid + " - " + std::string(name);
 	return info;
+}
+
+void Logger::setDebug(bool value){
+	Logger::debug = value;
 }

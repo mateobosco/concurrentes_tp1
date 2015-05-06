@@ -1,11 +1,3 @@
-//============================================================================
-// Name        : concurrentes_tp1.cpp
-// Author      : 
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
 #include <unistd.h>
 
 #include "Configuracion.h"
@@ -15,11 +7,10 @@ using namespace std;
 
 int main(int argc, char** argv) {
 	int pid = getpid();
-//	cout << " argumento 1 "<< argv[1] << endl;
 
 	Configuracion c = Configuracion("config.dat");
 
-	Pizzeria p = Pizzeria();
+	Pizzeria p = Pizzeria(argc > 1);
 	if (getpid() == pid) p.crearCaja();
 	if (getpid() == pid) p.crearGeneradorLlamados();
 	if (getpid() == pid) p.crearRecepcionistas(c.getCantRecepcionistas());
