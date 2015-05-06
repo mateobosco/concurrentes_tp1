@@ -23,7 +23,7 @@ public:
 	void cocinarse();
 
 private:
-	char gusto[50];
+	char gusto[100];
 	int duracion;
 	int precio;
 };

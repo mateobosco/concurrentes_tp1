@@ -19,6 +19,14 @@ set(SOURCE_FILES
     src/structures/SIGINT_Handler.h
     src/structures/SignalHandler.cpp
     src/structures/SignalHandler.h
+    src/structures/Semaforo.cpp
+    src/structures/Semaforo.h
+    src/Configuracion.cpp
+    src/Configuracion.h
+    src/ZappiFactory.cpp
+    src/ZappiFactory.h
+    src/Logger.cpp
+    src/Logger.h
     src/Caja.cpp
     src/Caja.h
     src/Cadete.cpp
@@ -41,4 +49,4 @@ set(SOURCE_FILES
     src/Zappi.cpp
     src/Zappi.h)
 
-add_executable(concurrentes_tp1 ${SOURCE_FILES} src/Supervisora.cpp src/Supervisora.h src/Caja.cpp src/Caja.h)
+add_executable(concurrentes_tp1 ${SOURCE_FILES} src/Supervisora.cpp src/Supervisora.h src/Caja.cpp src/Caja.h src/ZappiFactory.cpp src/ZappiFactory.h)
