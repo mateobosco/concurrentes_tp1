@@ -16,8 +16,6 @@ public:
 
 private:
     int total;
-
-
 };
 
 

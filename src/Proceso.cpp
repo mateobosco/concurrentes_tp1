@@ -13,6 +13,8 @@ Proceso::Proceso() {
 }
 
 Proceso::~Proceso() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
+
 	this->semaforoIniciador->eliminar();
 	delete this->semaforoIniciador;
 	SignalHandler :: destruir ();

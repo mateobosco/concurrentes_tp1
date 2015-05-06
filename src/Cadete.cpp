@@ -45,16 +45,14 @@ void Cadete::run(){
 	this->semaforoIniciador->p();
 
 	while (sigint_handler.getGracefulQuit() == 0){
-		Zappi* pizzaHorneada = new Zappi("",0,0);
+		Zappi* pizzaHorneada = new Zappi();
 		size_t len = sizeof(Zappi);
-//		std::cout << "CADETE: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHorneadas->leer((void*) pizzaHorneada, len);
 		if(leidos == (ssize_t) len){
 			Logger::log(Logger::INFO,"El cadete agarra y entrega un pizza de " + pizzaHorneada->getGusto());
-			std::cout<< "CADETE : leo una pizza"<<std::endl;
 		}
 		else{
-			Logger::log(Logger::ERROR," Error al leer la pizza");
+			Logger::log(Logger::ERROR," Leer pizza de colaPizzasHorneadas");
 		}
 		this->depositarEnCaja(pizzaHorneada->getPrecio());
 		this->liberarCadete();
@@ -69,7 +67,7 @@ void Cadete::depositarEnCaja(int precio) {
 	caja.sumarAlTotal(precio);
 	std::ostringstream os ;
 	os << precio;
-	Logger::log(Logger::INFO,"El el cadete guardo en la caja " + os.str());
+	Logger::log(Logger::INFO,"El cadete guarda en la caja " + os.str());
 	this->memoriaCompartidaCaja->escribir(caja);
 	this->lockMemoriaCompartidaCaja->liberarLock();
 }

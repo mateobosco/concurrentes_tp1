@@ -18,7 +18,6 @@ Recepcionista::Recepcionista() {
 }
 
 Recepcionista::~Recepcionista() {
-	std::cout << "Muere Recepcionista " << getpid() << std::endl;
 	this->colaPedidosRecibir->cerrar();
 	this->colaPedidosRecibir->eliminar();
 	delete this->colaPedidosRecibir;
@@ -37,23 +36,22 @@ void Recepcionista::run(){
 	this->semaforoIniciador->p();
 
 	while (sigint_handler.getGracefulQuit() == 0){
-		Zappi* pizzaLeida = new Zappi("",0,0);
+		Zappi* pizzaLeida = new Zappi();
 		size_t len = sizeof(Zappi);
-//		std::cout << "RECEPCIONISTA Espero para leer "<<getpid() << std::endl;
+
 		ssize_t leidos = this->colaPedidosRecibir->leer((void*) pizzaLeida, len);
 		this->semaforoPedidosPendientes->v();
 
 		if (leidos == (ssize_t)len){
-			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() <<"tengo pid: "<< getpid() << std::endl;
 			Logger::log(Logger::INFO,"La Recepcionista toma el pedido de una pizza de  " + pizzaLeida->getGusto() );
+
 			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
-			if (escritos != len){
-				std::cout<< "RECEPCIONISTA: ERROR Escribo " << escritos << std::endl;
-				Logger::log(Logger::ERROR," Problema al escribir la Pizza de "+ pizzaLeida->getGusto() );
+			if (escritos != (ssize_t) len){
+				Logger::log(Logger::ERROR,"Escribir pizza en colaPedidosCocinar" );
 			}
 		}
 		else{
-			Logger::log(Logger::ERROR,"Problema al leer la Pizza " );
+			Logger::log(Logger::ERROR,"Leer pizza en colaPedidosRecibir" );
 		}
 		delete pizzaLeida;
 	}

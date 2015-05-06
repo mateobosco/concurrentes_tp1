@@ -6,7 +6,6 @@
 
 Caja::Caja(){
     this->total = 0;
-
 }
 
 Caja::~Caja() {

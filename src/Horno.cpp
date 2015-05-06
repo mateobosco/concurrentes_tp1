@@ -45,25 +45,25 @@ void Horno::run(){
 	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaHornear = new Zappi();
 		size_t len = sizeof(Zappi);
-		std::cout << "HORNO: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHornear->leer((void*) pizzaHornear, len);
 
 		if(leidos == (ssize_t) len){
-			std::cout<< "HORNO : leo una pizza"<<std::endl;
 			Logger::log(Logger::INFO,"Meto al horno una Pizza de " + pizzaHornear->getGusto() );
-			this->semaforoHornosLibres->v(); // decrementa
-//			this->ocuparHorno();
+
+			this->semaforoHornosLibres->v();
 			pizzaHornear->cocinarse();
+
 			this->semaforoCadetesLibres->p();
 			ssize_t escritos = this->colaPizzaHorneadas->escribir((void*) pizzaHornear, len);
-			if(escritos != len){
-				Logger::log(Logger::ERROR," Se escribio mal la Pizza  " + pizzaHornear->getGusto() );
+			if(escritos != (ssize_t) len){
+				Logger::log(Logger::ERROR,"Escribir pizza en colaPizzasHorneadas");
 			}
 			Logger::log(Logger::INFO,"Se cocino la Pizza de " + pizzaHornear->getGusto() );
-			this->incrementarHornosLibres(); // incrementa
+
+			this->incrementarHornosLibres();
 		}
 		else{
-			Logger::log(Logger::ERROR," Se leyo  mal la Pizza  " );
+			Logger::log(Logger::ERROR,"Leer pizza en colaPizzasHornear");
 		}
 		delete pizzaHornear;
 	}

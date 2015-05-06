@@ -9,7 +9,7 @@ Supervisora::Supervisora(int segundos) {
 	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
 	int estadoMemoria = this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
 	if (estadoMemoria != SHM_OK){
-		Logger::log(Logger::ERROR,"Problema al crear la Memoria Compartida de la Caja");
+		Logger::log(Logger::ERROR,"No se pudo crear memoriaCompartidaCaja");
 	}
 	this->lockMemoriaCompartidaCaja = new LockFile("aux/lockMemoriaCompartidaCaja.txt");
 }
@@ -40,9 +40,8 @@ void Supervisora::controlarCaja(){
 	this->lockMemoriaCompartidaCaja->tomarLock();
 	Caja caja = this->memoriaCompartidaCaja->leer();
 	int total = caja.getTotal();
-	std::cout<<"SUPERVISORA: Leo que en la caja hay "<<total<<" pesos"<<std::endl;
 	std::ostringstream os ;
 	os << total;
-	Logger::log(Logger::INFO,"La supervisora revisa la caja y checkea que hay " + os.str());
+	Logger::log(Logger::INFO,"La supervisora revisa la caja y hay " + os.str());
 	this->lockMemoriaCompartidaCaja->liberarLock();
 }

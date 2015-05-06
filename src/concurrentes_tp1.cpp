@@ -15,7 +15,6 @@ using namespace std;
 
 int main(int argc, char** argv) {
 	int pid = getpid();
-	cout << "!!!PROCESO!!! "<< pid << endl;
 //	cout << " argumento 1 "<< argv[1] << endl;
 
 	Configuracion c = Configuracion("config.dat");

@@ -11,15 +11,12 @@
 #include <iostream>
 #include <vector>
 
-
 #include "structures/FifoEscritura.h"
 #include "structures/Semaforo.h"
 
 #include "Proceso.h"
 #include "Zappi.h"
 #include "ZappiFactory.h"
-
-
 
 
 class GeneradorLlamados: public Proceso {
@@ -29,7 +26,6 @@ public:
 	void run();
 
 private:
-	Pizza elegirGustoRandom();
 	int seg;
 	FifoEscritura* fifoLlamadosGenerados;
 	Semaforo* semaforoPizzeriaGracefulQuit;

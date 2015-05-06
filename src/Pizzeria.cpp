@@ -150,22 +150,25 @@ void Pizzeria::crearSupervisora(int segundos){
 
 }
 
+void Pizzeria::crearCaja(){
+	Caja caja = Caja();
+	this->memoriaCompartidaCaja->escribir(caja);
+}
+
 void Pizzeria::run(){
 	int hijos = (int) this->childs.size();
 	this->semaforoIniciador->vN(hijos);
 
 	this->semaforoPizzeriaGracefulQuit->p();
-	std::cout<<"LA PIZZERIA DEL ORTO PUDO DECREMENTAR EL SEMAFORO"<<std::endl;
 	Logger::log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
 
 	for (size_t i = 0; i < this->childs.size() ; i++){
 		int p = this->childs[i];
-		std::cout<<"mato al hijo "<< p << std::endl;
+		std::ostringstream os ;
+		os << p;
+		Logger::log(Logger::INFO, "SIGINT a Proceso de pid: " + os.str());
 		kill(p,SIGINT);
 	}
 }
 
-void Pizzeria::crearCaja(){
-	Caja caja = Caja();
-	this->memoriaCompartidaCaja->escribir(caja);
-}
+
