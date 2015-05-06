@@ -21,6 +21,7 @@ public:
 
 	int p () const; // decrementa
 	int v () const; // incrementa
+	int vN ( const int n) const; // incrementa N
 	void eliminar () const;
 };
 

@@ -13,6 +13,7 @@
 
 #include "structures/SIGINT_Handler.h"
 #include "structures/SignalHandler.h"
+#include "structures/Semaforo.h"
 
 #include "Logger.h"
 
@@ -22,6 +23,8 @@ public:
 	virtual ~Proceso();
 	SIGINT_Handler sigint_handler;
 	void changeName(std::string name);
+
+	Semaforo* semaforoIniciador;
 };
 
 #endif /* PROCESO_H_ */

@@ -23,6 +23,9 @@ Supervisora::~Supervisora() {
 
 void Supervisora::run(){
     this->changeName("TP - Supervisora");
+
+    this->semaforoIniciador->p();
+
     while (sigint_handler.getGracefulQuit() == 0){
     	this->controlarCaja();
     	this->dormir();

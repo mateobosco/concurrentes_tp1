@@ -34,6 +34,9 @@ Horno::~Horno() {
 
 void Horno::run(){
 	this->changeName("TP - Horno");
+
+	this->semaforoIniciador->p();
+
 	while (sigint_handler.getGracefulQuit() == 0){
 		Zappi* pizzaHornear = new Zappi("",0,0);
 		size_t len = sizeof(Zappi);
