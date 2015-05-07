@@ -11,7 +11,6 @@ using namespace std;
 
 Pizzeria::Pizzeria() {
 //	Logger::setDebug(debug);
-	Logger::Instance()->log(Logger::INFO, "blabla");
 	std::string string = Logger::file;
 	remove(string.c_str());
 	this->changeName("TP - Pizzeria");

@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <string.h>
+#include <unistd.h>
 
 
 class Zappi {
@@ -19,14 +20,18 @@ public:
 	virtual ~Zappi();
 
 	std::string getGusto();
-	int getDuracion();
+	int getTiempoHorno();
 	int getPrecio();
 	void cocinarse();
+	void repartir();
+	void preparar();
 
 private:
 	char gusto[100];
-	int duracion;
+	int tiempoHorno;
 	int precio;
+	int tiempoPreparacion;
+	int tiempoDistribucion;
 };
 
 #endif /* ZAPPI_H_ */

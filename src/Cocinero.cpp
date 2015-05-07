@@ -46,6 +46,7 @@ void Cocinero::run(){
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);
 		if(leidos == (ssize_t) len){
 			Logger::Instance()->log(Logger::INFO,"Un Cocinero toma el pedido de una pizza de " + pizzaCocinar->getGusto() );
+			pizzaCocinar->preparar();
 			this->ocuparHorno();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
 			if (escritos != (ssize_t) len){
