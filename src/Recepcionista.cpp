@@ -18,7 +18,7 @@ Recepcionista::Recepcionista() {
 }
 
 Recepcionista::~Recepcionista() {
-	Logger::log(Logger::INFO, "Finaliza el proceso");
+	Logger::Instance()->log(Logger::INFO, "Finaliza el proceso");
 
 	this->colaPedidosRecibir->cerrar();
 	this->colaPedidosRecibir->eliminar();
@@ -49,7 +49,6 @@ void Recepcionista::run(){
 
 			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
 			if (escritos != (ssize_t) len){
-				Logger::log(Logger::ERROR,"Escribir pizza en colaPedidosCocinar" );
 				Logger::Instance()->log(Logger::ERROR," Problema al escribir la Pizza de "+ pizzaLeida->getGusto() );
 			}
 		}

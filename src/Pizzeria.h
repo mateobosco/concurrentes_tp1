@@ -24,7 +24,7 @@
 
 class Pizzeria: public Proceso {
 public:
-	Pizzeria(bool debug);
+	Pizzeria();
 	virtual ~Pizzeria();
 	void crearGeneradorLlamados();
 	void crearRecepcionistas(int n);

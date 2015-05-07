@@ -26,7 +26,7 @@ Cadete::Cadete() {
 }
 
 Cadete::~Cadete() {
-	Logger::log(Logger::INFO, "Finaliza el proceso");
+	Logger::Instance()->log(Logger::INFO, "Finaliza el proceso");
 	this->colaPizzasHorneadas->cerrar();
 	this->colaPizzasHorneadas->eliminar();
 	delete this->colaPizzasHorneadas;

@@ -9,15 +9,13 @@
 
 using namespace std;
 
-Pizzeria::Pizzeria(bool debug) {
-	Logger::setDebug(debug);
-	Logger::log(Logger::INFO, "blabla");
+Pizzeria::Pizzeria() {
+//	Logger::setDebug(debug);
+	Logger::Instance()->log(Logger::INFO, "blabla");
 	std::string string = Logger::file;
 	remove(string.c_str());
-		Logger::Instance()->log(Logger::ERROR, " No se puede borrar el log anterior");
 	this->changeName("TP - Pizzeria");
 	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt",0);
-
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt",0);
 	this->semaforoCadetesLibres = new Semaforo("aux/semaforoCadetesLibres.txt",0);
 	this->semaforoPedidosPendientes = NULL; //Se crea cuando se sabe la cantidad de cocineros a crear.
@@ -30,7 +28,7 @@ Pizzeria::Pizzeria(bool debug) {
 }
 
 Pizzeria::~Pizzeria() {
-	Logger::log(Logger::INFO, "Finaliza el proceso Pizzeria");
+	Logger::Instance()->log(Logger::INFO, "Finaliza el proceso Pizzeria");
 
 	this->semaforoPizzeriaGracefulQuit->eliminar();
 	delete this->semaforoPizzeriaGracefulQuit;
@@ -157,7 +155,7 @@ void Pizzeria::crearCaja(){
 void Pizzeria::run(){
 	int hijos = (int) this->childs.size();
 	std::cout<<"Comienza la simulacion"<<std::endl;
-	Logger::log(Logger::INFO, "Comienza la simulacion");
+	Logger::Instance()->log(Logger::INFO, "Comienza la simulacion");
 	this->semaforoIniciador->vN(hijos);
 
 
@@ -168,7 +166,7 @@ void Pizzeria::run(){
 		int p = this->childs[i];
 		std::ostringstream os ;
 		os << p;
-		Logger::log(Logger::INFO, "SIGINT a Proceso de pid: " + os.str());
+		Logger::Instance()->log(Logger::INFO, "SIGINT a Proceso de pid: " + os.str());
 		kill(p,SIGINT);
 	}
 }

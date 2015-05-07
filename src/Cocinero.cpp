@@ -19,7 +19,7 @@ Cocinero::Cocinero() {
 }
 
 Cocinero::~Cocinero() {
-	Logger::log(Logger::INFO, "Finaliza el proceso");
+	Logger::Instance()->log(Logger::INFO, "Finaliza el proceso");
 	this->colaPedidosCocinar->cerrar();
 	this->colaPedidosCocinar->eliminar();
 	delete this->colaPedidosCocinar;
@@ -49,7 +49,7 @@ void Cocinero::run(){
 			this->ocuparHorno();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
 			if (escritos != (ssize_t) len){
-				Logger::log(Logger::ERROR,"Escribir pizza en colaPizzasHornear");
+				Logger::Instance()->log(Logger::ERROR,"Escribir pizza en colaPizzasHornear");
 				Logger::Instance()->log(Logger::ERROR," Problema al escribir la pizza de "+ pizzaCocinar->getGusto());
 			}
 		}

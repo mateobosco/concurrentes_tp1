@@ -13,7 +13,7 @@
 std::string Logger::file = "aux/log.txt";
 int Logger::ERROR = 2;
 int Logger::INFO = 1;
-bool Logger::debug = true;
+//bool Logger::debug = true;
 Logger* Logger::m_pInstance = NULL;
 
 Logger* Logger::Instance() {

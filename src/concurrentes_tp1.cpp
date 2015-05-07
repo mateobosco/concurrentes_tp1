@@ -21,7 +21,6 @@ int main(int argc, char** argv) {
 
 	Configuracion c = Configuracion("config.dat");
 
-	Pizzeria p = Pizzeria(argc > 1);
 	Pizzeria p = Pizzeria();
 	if (getpid() == pid) p.crearCaja();
 	if (getpid() == pid) p.crearGeneradorLlamados();
