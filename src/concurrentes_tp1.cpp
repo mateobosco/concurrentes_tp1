@@ -20,6 +20,5 @@ int main(int argc, char** argv) {
 	if (getpid() == pid) p.crearSupervisora(c.getTiempoSupervisora());
 	if (getpid() == pid) p.run();
 
-	cout<<"FINALIZA EL PROGRAMA"<<endl;
 	return 0;
 }

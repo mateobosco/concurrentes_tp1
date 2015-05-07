@@ -15,6 +15,8 @@ Supervisora::Supervisora(int segundos) {
 }
 
 Supervisora::~Supervisora() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
+
 	this->memoriaCompartidaCaja->liberar();
 	delete this->memoriaCompartidaCaja;
 

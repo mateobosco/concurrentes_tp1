@@ -21,6 +21,7 @@ Horno::Horno() {
 }
 
 Horno::~Horno() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
 
 	this->colaPizzasHornear->cerrar();
 	this->colaPizzasHornear->eliminar();

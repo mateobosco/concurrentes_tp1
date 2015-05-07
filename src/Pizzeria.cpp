@@ -29,7 +29,8 @@ Pizzeria::Pizzeria(bool debug) {
 }
 
 Pizzeria::~Pizzeria() {
-	//std::cout<<"Llamo al destructor de pizzeria"<<std::endl;
+	Logger::log(Logger::INFO, "Finaliza el proceso Pizzeria");
+
 	this->semaforoPizzeriaGracefulQuit->eliminar();
 	delete this->semaforoPizzeriaGracefulQuit;
 
@@ -154,7 +155,10 @@ void Pizzeria::crearCaja(){
 
 void Pizzeria::run(){
 	int hijos = (int) this->childs.size();
+	std::cout<<"Comienza la simulacion"<<std::endl;
+	Logger::log(Logger::INFO, "Comienza la simulacion");
 	this->semaforoIniciador->vN(hijos);
+
 
 	this->semaforoPizzeriaGracefulQuit->p();
 	Logger::log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");

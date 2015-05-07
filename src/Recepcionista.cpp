@@ -18,6 +18,8 @@ Recepcionista::Recepcionista() {
 }
 
 Recepcionista::~Recepcionista() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
+
 	this->colaPedidosRecibir->cerrar();
 	this->colaPedidosRecibir->eliminar();
 	delete this->colaPedidosRecibir;

@@ -10,11 +10,10 @@
 Proceso::Proceso() {
 	SignalHandler :: getInstance()->registrarHandler ( SIGINT,&sigint_handler );
 	this->semaforoIniciador = new Semaforo("aux/semaforoIniciador.txt",0);
+	Logger::log(Logger::INFO, "Se crea el proceso");
 }
 
 Proceso::~Proceso() {
-	Logger::log(Logger::INFO, "Finaliza el proceso");
-
 	this->semaforoIniciador->eliminar();
 	delete this->semaforoIniciador;
 	SignalHandler :: destruir ();

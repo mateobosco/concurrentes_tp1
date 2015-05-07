@@ -16,6 +16,7 @@ GeneradorLlamados::GeneradorLlamados() {
 }
 
 GeneradorLlamados::~GeneradorLlamados() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
 	this->semaforoPizzeriaGracefulQuit->eliminar();
 	delete this->semaforoPizzeriaGracefulQuit;
 	this->fifoLlamadosGenerados->cerrar();
@@ -44,7 +45,7 @@ void GeneradorLlamados::run(){
 		sleep(this->seg);
 		i++;
 	}
-	std::cout<< "LIBERO EL SEMAFORO PARA GRACEFUL QUIT"<< std::endl;
+	Logger::log(Logger::INFO, "Se libera el semaforo para graceful quit");
 	this->semaforoPizzeriaGracefulQuit->v();
 }
 

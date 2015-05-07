@@ -19,6 +19,7 @@ Cocinero::Cocinero() {
 }
 
 Cocinero::~Cocinero() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
 	this->colaPedidosCocinar->cerrar();
 	this->colaPedidosCocinar->eliminar();
 	delete this->colaPedidosCocinar;
