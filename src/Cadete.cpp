@@ -51,6 +51,7 @@ void Cadete::run(){
 		ssize_t leidos = this->colaPizzasHorneadas->leer((void*) pizzaHorneada, len);
 		if(leidos == (ssize_t) len){
 			Logger::log(Logger::INFO,"El cadete agarra y entrega un pizza de " + pizzaHorneada->getGusto());
+			pizzaHorneada->repartir();
 		}
 		else{
 			Logger::log(Logger::ERROR," Leer pizza de colaPizzasHorneadas");

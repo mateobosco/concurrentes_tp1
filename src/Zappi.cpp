@@ -8,22 +8,22 @@
 #include "Zappi.h"
 
 Zappi::Zappi(){
-	this->duracion = 0;
+	this->tiempoHorno = 0;
 	this->precio = 0;
+	this->tiempoDistribucion = 0;
+	this->tiempoPreparacion = 0;
 }
 
 Zappi::Zappi(std::string gusto, int duracion, int precio) {
 	memset(this->gusto,0,50);
 	memcpy(this->gusto,gusto.c_str(),gusto.size());
-	this->duracion = duracion;
+	this->tiempoHorno = duracion;
 	this->precio = precio;
+	this->tiempoPreparacion = 3;
+	this->tiempoDistribucion = 4;
 }
 
 Zappi::~Zappi() {
-}
-
-int Zappi::getDuracion() {
-	return this->duracion;
 }
 
 std::string Zappi::getGusto() {
@@ -35,5 +35,13 @@ int Zappi::getPrecio() {
 }
 
 void Zappi::cocinarse(){
+	sleep(this->tiempoHorno);
+}
 
+void Zappi::preparar(){
+	sleep(this->tiempoPreparacion);
+}
+
+void Zappi::repartir(){
+	sleep(this->tiempoDistribucion);
 }
