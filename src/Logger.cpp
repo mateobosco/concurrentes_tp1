@@ -5,21 +5,31 @@
  *      Author: mateo
  */
 
+
+#include <stddef.h>
+
 #include "Logger.h"
 
 std::string Logger::file = "aux/log.txt";
 int Logger::ERROR = 2;
 int Logger::INFO = 1;
 
+Logger* Logger::m_pInstance = NULL;
 
-Logger::Logger() {
+Logger* Logger::Instance() {
+	if (!m_pInstance)   // Only allow one instance of class to be generated.
+		m_pInstance = new Logger;
+	return m_pInstance;
 }
 
-Logger::~Logger() {
-}
+//Logger::Logger() {
+//}
+//
+//Logger::~Logger() {
+//}
 
 void Logger::log(int level, std::string message){
-
+	if(!Logger::loggearBool) return;
 	std::string line;
 	if (level == Logger::INFO){
 		line = Logger::getTime() + " - " + "INFO: " + message + " " + Logger::getProcessInfo() + "\n";
@@ -27,10 +37,8 @@ void Logger::log(int level, std::string message){
 	if (level == Logger::ERROR){
 		line = Logger::getTime() + " - " + "ERROR: " + message + " " + Logger::getProcessInfo() + "\n";
 	}
-
 	char m[line.size()];
 	memcpy(m,line.c_str(),line.size());
-
 	LockFile lock(Logger::file.c_str());
 	lock.tomarLock();
 	int res = lock.escribir(static_cast<void*>(m), line.size());

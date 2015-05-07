@@ -47,16 +47,16 @@ void Cocinero::run(){
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);
 		if(leidos == (ssize_t) len){
 			std::cout<< "COCINERO: leo una pizza"<<std::endl;
-			Logger::log(Logger::INFO,"Un Cocinero toma el pedido de una pizza de " + pizzaCocinar->getGusto() );
+			Logger::Instance()->log(Logger::INFO,"Un Cocinero toma el pedido de una pizza de " + pizzaCocinar->getGusto() );
 			this->ocuparHorno();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
 			if (escritos != len){
 				std::cout<< "COCINERO: ERROR Escribo " << escritos << std::endl;
-				Logger::log(Logger::ERROR," Problema al escribir la pizza de "+ pizzaCocinar->getGusto());
+				Logger::Instance()->log(Logger::ERROR," Problema al escribir la pizza de "+ pizzaCocinar->getGusto());
 			}
 		}
 		else{
-			Logger::log(Logger::ERROR," Problema al leer la pizza ");
+			Logger::Instance()->log(Logger::ERROR," Problema al leer la pizza ");
 		}
 		delete pizzaCocinar;
 	}

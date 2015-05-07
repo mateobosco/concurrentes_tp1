@@ -14,7 +14,7 @@ Pizzeria::Pizzeria() {
 	std::string string = Logger::file;
 	int resultado = remove(string.c_str());
 	if (resultado != 0){
-		Logger::log(Logger::ERROR, " No se puede borrar el log anterior");
+		Logger::Instance()->log(Logger::ERROR, " No se puede borrar el log anterior");
 	}
 	this->changeName("TP - Pizzeria");
 	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt",0);
@@ -26,7 +26,7 @@ Pizzeria::Pizzeria() {
 	int estadoMemoria = this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
 	if ( estadoMemoria != SHM_OK ) {
 		//cout << "Error en memoria compartida: " << estadoMemoria << endl;
-		Logger::log(Logger::ERROR," problema al crear la Memoria Compartida en la pizzeria");
+		Logger::Instance()->log(Logger::ERROR," problema al crear la Memoria Compartida en la pizzeria");
 	}
 }
 
@@ -51,7 +51,7 @@ void Pizzeria::crearGeneradorLlamados(){
 	int pid_llamados = fork();
 	if (pid_llamados == 0){//hijo generador de pedidos
 		std::cout << "Creo un generador de llamados" << std::endl;
-		Logger::log(Logger::INFO,"Se crea el generador de llamados" + pid_llamados );
+		Logger::Instance()->log(Logger::INFO,"Se crea el generador de llamados" + pid_llamados );
 		GeneradorLlamados* generador = new GeneradorLlamados();
 		generador->run();
 		delete generador;
@@ -66,7 +66,7 @@ void Pizzeria::crearRecepcionistas(int n){
 		if (pid_recepcionista == 0){//Proceso hijo -> recepcionista
 			Recepcionista* r = new Recepcionista();
 			std::cout << "Creo una recepcionista con pid "<< getpid() << std::endl;
-			Logger::log(Logger::INFO,"Se crea a una recepcionista" + pid_recepcionista);
+			Logger::Instance()->log(Logger::INFO,"Se crea a una recepcionista" + pid_recepcionista);
 			r->run();
 			delete r;
 			return;
@@ -84,7 +84,7 @@ void Pizzeria::crearCocineros(int n){
 		if (pid_cocinero == 0) { //Proceso hijo -> cocinero
 			Cocinero* c = new Cocinero();
 			std::cout<<"Creo un cocinero con pid "<< getpid()<<std::endl;
-			Logger::log(Logger::INFO,"Se crea a un cocinero " + pid_cocinero);
+			Logger::Instance()->log(Logger::INFO,"Se crea a un cocinero " + pid_cocinero);
 			c->run();
 			delete c;
 			return;
@@ -101,7 +101,7 @@ void Pizzeria::crearHornos(int n){
 		if (pid_horno == 0) { //Proceso hijo -> horno
 			Horno* h = new Horno();
 			std::cout<<"Creo un horno con pid "<< getpid()<<std::endl;
-			Logger::log(Logger::INFO,"Se crea a un horno" + pid_horno);
+			Logger::Instance()->log(Logger::INFO,"Se crea a un horno" + pid_horno);
 
 			h->run();
 			delete h;
@@ -119,7 +119,7 @@ void Pizzeria::crearCadetes(int n){
 		if (pid_cadete == 0){ //Proceso hijo -> cadete
 			Cadete* c = new Cadete();
 			std::cout<<"Creo un cadete con pid "<< getpid()<<std::endl;
-			Logger::log(Logger::INFO,"Se crea a un cadete " + pid_cadete);
+			Logger::Instance()->log(Logger::INFO,"Se crea a un cadete " + pid_cadete);
 			c->run();
 			delete c;
 			return;
@@ -135,7 +135,7 @@ void Pizzeria::crearSupervisora(int segundos){
 		if (pid_supervisora == 0){ //Proceso hijo -> cadete
 			Supervisora* s = new Supervisora(segundos);
 			std::cout<<"Creo una supervisora con pid "<< getpid()<<std::endl;
-			Logger::log(Logger::INFO,"Se crea la supervisora " + pid_supervisora);
+			Logger::Instance()->log(Logger::INFO,"Se crea la supervisora " + pid_supervisora);
 			s->run();
 			delete s;
 			return;
@@ -152,7 +152,7 @@ void Pizzeria::run(){
 
 	this->semaforoPizzeriaGracefulQuit->p();
 	std::cout<<"LA PIZZERIA DEL ORTO PUDO DECREMENTAR EL SEMAFORO"<<std::endl;
-	Logger::log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
+	Logger::Instance()->log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
 
 	for (size_t i = 0; i < this->childs.size() ; i++){
 		int p = this->childs[i];

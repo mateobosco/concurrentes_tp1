@@ -16,7 +16,17 @@ using namespace std;
 int main(int argc, char** argv) {
 	int pid = getpid();
 	cout << "!!!PROCESO!!! "<< pid << endl;
-	cout << " argumento 1 "<< argv[1] << endl;
+	Logger::Instance()->loggearBool = false;
+	if(strcmp(argv[1], "-l") == 0){
+		Logger::Instance()->loggearBool = true;
+	}
+	else{
+		Logger::Instance()->log(Logger::ERROR," Parametro recibido incorrento, ingrese '-l' para modo debug ");
+	}
+	if(argc >2){
+		Logger::Instance()->log(Logger::ERROR," Cantidad de parametros incorrecta, ingrese '-l' para modo debug ");
+	}
+
 
 	Configuracion c = Configuracion("config.dat");
 

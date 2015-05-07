@@ -45,15 +45,15 @@ void Recepcionista::run(){
 
 		if (leidos == (ssize_t)len){
 			std::cout << "RECEPCIONISTA Lei una pizza de: "<<pizzaLeida->getGusto() <<"tengo pid: "<< getpid() << std::endl;
-			Logger::log(Logger::INFO,"La Recepcionista toma el pedido de una pizza de  " + pizzaLeida->getGusto() );
+			Logger::Instance()->log(Logger::INFO,"La Recepcionista toma el pedido de una pizza de  " + pizzaLeida->getGusto() );
 			ssize_t escritos = this->colaPedidosCocinar->escribir((void*) pizzaLeida, len);
 			if (escritos != len){
 				std::cout<< "RECEPCIONISTA: ERROR Escribo " << escritos << std::endl;
-				Logger::log(Logger::ERROR," Problema al escribir la Pizza de "+ pizzaLeida->getGusto() );
+				Logger::Instance()->log(Logger::ERROR," Problema al escribir la Pizza de "+ pizzaLeida->getGusto() );
 			}
 		}
 		else{
-			Logger::log(Logger::ERROR,"Problema al leer la Pizza " );
+			Logger::Instance()->log(Logger::ERROR,"Problema al leer la Pizza " );
 		}
 		delete pizzaLeida;
 	}

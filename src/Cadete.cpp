@@ -17,7 +17,7 @@ Cadete::Cadete() {
 
 	int estadoMemoria = this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
 	if (estadoMemoria != SHM_OK){
-		Logger::log(Logger::INFO,"ERROR: Error al crear la Memoria Compartida en el Cadete");
+		Logger::Instance()->log(Logger::INFO,"ERROR: Error al crear la Memoria Compartida en el Cadete");
 	}
 	this->lockMemoriaCompartidaCaja = new LockFile("aux/lockMemoriaCompartidaCaja.txt");
 }
@@ -44,11 +44,11 @@ void Cadete::run(){
 //		std::cout << "CADETE: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHorneadas->leer((void*) pizzaHorneada, len);
 		if(leidos == (ssize_t) len){
-			Logger::log(Logger::INFO,"El cadete agarra y entrega un pizza de " + pizzaHorneada->getGusto());
+			Logger::Instance()->log(Logger::INFO,"El cadete agarra y entrega un pizza de " + pizzaHorneada->getGusto());
 			std::cout<< "CADETE : leo una pizza"<<std::endl;
 		}
 		else{
-			Logger::log(Logger::ERROR," Error al leer la pizza");
+			Logger::Instance()->log(Logger::ERROR," Error al leer la pizza");
 		}
 		this->depositarEnCaja(pizzaHorneada->getPrecio());
 
@@ -60,7 +60,7 @@ void Cadete::depositarEnCaja(int precio) {
 	this->lockMemoriaCompartidaCaja->tomarLock();
 	Caja caja = this->memoriaCompartidaCaja->leer();
 	caja.sumarAlTotal(precio);
-	Logger::log(Logger::INFO,"El el cadete guardo en la caja " + std::to_string(precio));
+	Logger::Instance()->log(Logger::INFO,"El el cadete guardo en la caja " + std::to_string(precio));
 	this->memoriaCompartidaCaja->escribir(caja);
 	this->lockMemoriaCompartidaCaja->liberarLock();
 }

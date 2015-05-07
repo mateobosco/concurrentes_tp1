@@ -45,19 +45,19 @@ void Horno::run(){
 
 		if(leidos == (ssize_t) len){
 			std::cout<< "HORNO : leo una pizza"<<std::endl;
-			Logger::log(Logger::INFO,"Meto al horno una Pizza de " + pizzaHornear->getGusto() );
+			Logger::Instance()->log(Logger::INFO,"Meto al horno una Pizza de " + pizzaHornear->getGusto() );
 			this->semaforoHornosLibres->v(); // decrementa
 //			this->ocuparHorno();
 			pizzaHornear->cocinarse();
 			ssize_t escritos = this->colaPizzaHorneadas->escribir((void*) pizzaHornear, len);
 			if(escritos != len){
-				Logger::log(Logger::ERROR," Se escribio mal la Pizza  " + pizzaHornear->getGusto() );
+				Logger::Instance()->log(Logger::ERROR," Se escribio mal la Pizza  " + pizzaHornear->getGusto() );
 			}
-			Logger::log(Logger::INFO,"Se cocino la Pizza de " + pizzaHornear->getGusto() );
+			Logger::Instance()->log(Logger::INFO,"Se cocino la Pizza de " + pizzaHornear->getGusto() );
 			this->incrementarHornosLibres(); // incrementa
 		}
 		else{
-			Logger::log(Logger::ERROR," Se leyo  mal la Pizza  " );
+			Logger::Instance()->log(Logger::ERROR," Se leyo  mal la Pizza  " );
 		}
 		delete pizzaHornear;
 	}
