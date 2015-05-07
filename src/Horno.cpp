@@ -16,9 +16,12 @@ Horno::Horno() {
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt");
 	this->incrementarHornosLibres();
+
+	this->semaforoCadetesLibres = new Semaforo("aux/semaforoCadetesLibres.txt");
 }
 
 Horno::~Horno() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
 
 	this->colaPizzasHornear->cerrar();
 	this->colaPizzasHornear->eliminar();
@@ -30,6 +33,9 @@ Horno::~Horno() {
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
+
+	this->semaforoCadetesLibres->eliminar();
+	delete this->semaforoCadetesLibres;
 }
 
 void Horno::run(){
@@ -38,23 +44,24 @@ void Horno::run(){
 	this->semaforoIniciador->p();
 
 	while (sigint_handler.getGracefulQuit() == 0){
-		Zappi* pizzaHornear = new Zappi("",0,0);
+		Zappi* pizzaHornear = new Zappi();
 		size_t len = sizeof(Zappi);
-		std::cout << "HORNO: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHornear->leer((void*) pizzaHornear, len);
 
 		if(leidos == (ssize_t) len){
-			std::cout<< "HORNO : leo una pizza"<<std::endl;
 			Logger::Instance()->log(Logger::INFO,"Meto al horno una Pizza de " + pizzaHornear->getGusto() );
-			this->semaforoHornosLibres->v(); // decrementa
-//			this->ocuparHorno();
+
+			this->semaforoHornosLibres->v();
 			pizzaHornear->cocinarse();
+
+			this->semaforoCadetesLibres->p();
 			ssize_t escritos = this->colaPizzaHorneadas->escribir((void*) pizzaHornear, len);
-			if(escritos != len){
+			if(escritos != (ssize_t) len){
 				Logger::Instance()->log(Logger::ERROR," Se escribio mal la Pizza  " + pizzaHornear->getGusto() );
 			}
 			Logger::Instance()->log(Logger::INFO,"Se cocino la Pizza de " + pizzaHornear->getGusto() );
-			this->incrementarHornosLibres(); // incrementa
+
+			this->incrementarHornosLibres();
 		}
 		else{
 			Logger::Instance()->log(Logger::ERROR," Se leyo  mal la Pizza  " );

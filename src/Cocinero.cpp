@@ -19,8 +19,7 @@ Cocinero::Cocinero() {
 }
 
 Cocinero::~Cocinero() {
-	std::cout<<"Muere el Cocinero de pid" << getpid()<< std::endl;
-
+	Logger::log(Logger::INFO, "Finaliza el proceso");
 	this->colaPedidosCocinar->cerrar();
 	this->colaPedidosCocinar->eliminar();
 	delete this->colaPedidosCocinar;
@@ -42,16 +41,15 @@ void Cocinero::run(){
 	this->semaforoIniciador->p();
 
 	while (sigint_handler.getGracefulQuit() == 0){
-		Zappi* pizzaCocinar = new Zappi("",0,0);
+		Zappi* pizzaCocinar = new Zappi();
 		size_t len = sizeof(Zappi);
 		ssize_t leidos = this->colaPedidosCocinar->leer((void*) pizzaCocinar, len);
 		if(leidos == (ssize_t) len){
-			std::cout<< "COCINERO: leo una pizza"<<std::endl;
 			Logger::Instance()->log(Logger::INFO,"Un Cocinero toma el pedido de una pizza de " + pizzaCocinar->getGusto() );
 			this->ocuparHorno();
 			ssize_t escritos = this->colaPizzasHornear->escribir((void*) pizzaCocinar, len);
-			if (escritos != len){
-				std::cout<< "COCINERO: ERROR Escribo " << escritos << std::endl;
+			if (escritos != (ssize_t) len){
+				Logger::log(Logger::ERROR,"Escribir pizza en colaPizzasHornear");
 				Logger::Instance()->log(Logger::ERROR," Problema al escribir la pizza de "+ pizzaCocinar->getGusto());
 			}
 		}

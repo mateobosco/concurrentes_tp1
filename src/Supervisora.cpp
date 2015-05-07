@@ -15,6 +15,8 @@ Supervisora::Supervisora(int segundos) {
 }
 
 Supervisora::~Supervisora() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
+
 	this->memoriaCompartidaCaja->liberar();
 	delete this->memoriaCompartidaCaja;
 
@@ -40,7 +42,8 @@ void Supervisora::controlarCaja(){
 	this->lockMemoriaCompartidaCaja->tomarLock();
 	Caja caja = this->memoriaCompartidaCaja->leer();
 	int total = caja.getTotal();
-	std::cout<<"SUPERVISORA: Leo que en la caja hay "<<total<<" pesos"<<std::endl;
-	Logger::Instance()->log(Logger::INFO,"La supervisora revisa la caja y checkea que hay " + std::to_string(total));
+	std::ostringstream os ;
+	os << total;
+	Logger::log(Logger::INFO,"La supervisora revisa la caja y hay " + os.str());
 	this->lockMemoriaCompartidaCaja->liberarLock();
 }

@@ -24,7 +24,7 @@
 
 class Pizzeria: public Proceso {
 public:
-	Pizzeria();
+	Pizzeria(bool debug);
 	virtual ~Pizzeria();
 	void crearGeneradorLlamados();
 	void crearRecepcionistas(int n);
@@ -42,6 +42,7 @@ private:
 	Semaforo* semaforoPizzeriaGracefulQuit;
 	Semaforo* semaforoHornosLibres;
 	Semaforo* semaforoPedidosPendientes;
+	Semaforo* semaforoCadetesLibres;
 
 	MemoriaCompartida<Caja>* memoriaCompartidaCaja;
 };

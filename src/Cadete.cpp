@@ -20,9 +20,13 @@ Cadete::Cadete() {
 		Logger::Instance()->log(Logger::INFO,"ERROR: Error al crear la Memoria Compartida en el Cadete");
 	}
 	this->lockMemoriaCompartidaCaja = new LockFile("aux/lockMemoriaCompartidaCaja.txt");
+
+	this->semaforoCadetesLibres = new Semaforo("aux/semaforoCadetesLibres.txt");
+	this->liberarCadete();
 }
 
 Cadete::~Cadete() {
+	Logger::log(Logger::INFO, "Finaliza el proceso");
 	this->colaPizzasHorneadas->cerrar();
 	this->colaPizzasHorneadas->eliminar();
 	delete this->colaPizzasHorneadas;
@@ -31,6 +35,9 @@ Cadete::~Cadete() {
 	delete this->memoriaCompartidaCaja;
 
 	delete this->lockMemoriaCompartidaCaja;
+
+	this->semaforoCadetesLibres->eliminar();
+	delete this->semaforoCadetesLibres;
 }
 
 void Cadete::run(){
@@ -39,18 +46,17 @@ void Cadete::run(){
 	this->semaforoIniciador->p();
 
 	while (sigint_handler.getGracefulQuit() == 0){
-		Zappi* pizzaHorneada = new Zappi("",0,0);
+		Zappi* pizzaHorneada = new Zappi();
 		size_t len = sizeof(Zappi);
-//		std::cout << "CADETE: Espero para leer"<<getpid() << std::endl;
 		ssize_t leidos = this->colaPizzasHorneadas->leer((void*) pizzaHorneada, len);
 		if(leidos == (ssize_t) len){
 			Logger::Instance()->log(Logger::INFO,"El cadete agarra y entrega un pizza de " + pizzaHorneada->getGusto());
-			std::cout<< "CADETE : leo una pizza"<<std::endl;
 		}
 		else{
 			Logger::Instance()->log(Logger::ERROR," Error al leer la pizza");
 		}
 		this->depositarEnCaja(pizzaHorneada->getPrecio());
+		this->liberarCadete();
 
 		delete pizzaHorneada;
 	}
@@ -63,4 +69,8 @@ void Cadete::depositarEnCaja(int precio) {
 	Logger::Instance()->log(Logger::INFO,"El el cadete guardo en la caja " + std::to_string(precio));
 	this->memoriaCompartidaCaja->escribir(caja);
 	this->lockMemoriaCompartidaCaja->liberarLock();
+}
+
+void Cadete::liberarCadete(){
+	this->semaforoCadetesLibres->v();
 }

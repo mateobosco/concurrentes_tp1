@@ -9,34 +9,37 @@
 
 using namespace std;
 
-Pizzeria::Pizzeria() {
-
+Pizzeria::Pizzeria(bool debug) {
+	Logger::setDebug(debug);
+	Logger::log(Logger::INFO, "blabla");
 	std::string string = Logger::file;
-	int resultado = remove(string.c_str());
-	if (resultado != 0){
+	remove(string.c_str());
 		Logger::Instance()->log(Logger::ERROR, " No se puede borrar el log anterior");
-	}
 	this->changeName("TP - Pizzeria");
 	this->semaforoPizzeriaGracefulQuit = new Semaforo("aux/semaforoPizzeriaGracefulQuit.txt",0);
 
 	this->semaforoHornosLibres = new Semaforo("aux/semaforoHornosLibres.txt",0);
+	this->semaforoCadetesLibres = new Semaforo("aux/semaforoCadetesLibres.txt",0);
 	this->semaforoPedidosPendientes = NULL; //Se crea cuando se sabe la cantidad de cocineros a crear.
 
 	this->memoriaCompartidaCaja = new MemoriaCompartida<Caja>();
 	int estadoMemoria = this->memoriaCompartidaCaja->crear("aux/memoriaCompartidaCaja.txt",'R');
 	if ( estadoMemoria != SHM_OK ) {
-		//cout << "Error en memoria compartida: " << estadoMemoria << endl;
 		Logger::Instance()->log(Logger::ERROR," problema al crear la Memoria Compartida en la pizzeria");
 	}
 }
 
 Pizzeria::~Pizzeria() {
-	//std::cout<<"Llamo al destructor de pizzeria"<<std::endl;
+	Logger::log(Logger::INFO, "Finaliza el proceso Pizzeria");
+
 	this->semaforoPizzeriaGracefulQuit->eliminar();
 	delete this->semaforoPizzeriaGracefulQuit;
 
 	this->semaforoHornosLibres->eliminar();
 	delete this->semaforoHornosLibres;
+
+	this->semaforoCadetesLibres->eliminar();
+	delete this->semaforoCadetesLibres;
 
 	if (this->semaforoPedidosPendientes != NULL){
 		this->semaforoPedidosPendientes->eliminar();
@@ -146,22 +149,28 @@ void Pizzeria::crearSupervisora(int segundos){
 
 }
 
-void Pizzeria::run(){
-	int hijos = (int) this->childs.size();
-	this->semaforoIniciador->vN(hijos);
-
-	this->semaforoPizzeriaGracefulQuit->p();
-	std::cout<<"LA PIZZERIA DEL ORTO PUDO DECREMENTAR EL SEMAFORO"<<std::endl;
-	Logger::Instance()->log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
-
-	for (size_t i = 0; i < this->childs.size() ; i++){
-		int p = this->childs[i];
-		std::cout<<"mato al hijo "<< p << std::endl;
-		kill(p,SIGINT);
-	}
-}
-
 void Pizzeria::crearCaja(){
 	Caja caja = Caja();
 	this->memoriaCompartidaCaja->escribir(caja);
 }
+
+void Pizzeria::run(){
+	int hijos = (int) this->childs.size();
+	std::cout<<"Comienza la simulacion"<<std::endl;
+	Logger::log(Logger::INFO, "Comienza la simulacion");
+	this->semaforoIniciador->vN(hijos);
+
+
+	this->semaforoPizzeriaGracefulQuit->p();
+	Logger::Instance()->log(Logger::INFO, "Se libera el lock para que terminen todos los procesos");
+
+	for (size_t i = 0; i < this->childs.size() ; i++){
+		int p = this->childs[i];
+		std::ostringstream os ;
+		os << p;
+		Logger::log(Logger::INFO, "SIGINT a Proceso de pid: " + os.str());
+		kill(p,SIGINT);
+	}
+}
+
+
